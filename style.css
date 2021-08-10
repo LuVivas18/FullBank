@@ -15,6 +15,15 @@
     justify-content: center;
     align-items: center;
   }
+
+  .navbar-li i {
+    color: #ffd700;
+    opacity: 0.7;
+    font-size: 130%;
+    height: 1.8rem;
+    transition: 1s;
+  }
+  
   .register-box,
   .login-box {
     height: auto;
@@ -286,7 +295,7 @@ section article p {
   }
 
   .navbar-li i {
-    color: #eeeeee;
+    color: #ffd700;
     opacity: 0.7;
     font-size: 130%;
     height: 1.8rem;
