@@ -157,7 +157,6 @@ body {
   border-bottom: 0.2rem solid #ffd700;
 }
 
-
 .navbar .text-box {
   border: 2px solid #ffd700;
   border-radius: 10px;
@@ -194,13 +193,10 @@ body {
   border-color: white;
 }
 
-
 /* color for font */
 i {
-  color: #ffd700; 
-
+  color: #ffd700;
 }
-
 
 .register-box > p,
 .login-box > p {
@@ -269,8 +265,6 @@ section article p {
   color: white;
 }
 
-
-
 /* user Login (usuario logeado) */
 
 /* small divices */
@@ -310,7 +304,7 @@ section article p {
     align-items: center;
     width: 100vw;
     margin: auto;
-    background-color: #2B2A2C;
+    background-color: #2b2a2c;
     height: 6rem;
     margin-bottom: 2.5rem;
   }
@@ -338,7 +332,7 @@ section article p {
 
   .container-topside div {
     border-radius: 0.25rem;
-    background-color: #2B2A2C;
+    background-color: #2b2a2c;
     width: 80%;
     margin: 0 auto;
     padding-right: 1rem;
@@ -387,121 +381,126 @@ section article p {
 /* Laptops and Desktops */
 
 @media (min-width: 769px) {
-    #userLoginPage {
-        background-color: #131414;
-      }
-      .navbar h1 > span {
-        color: #eeeeee; /*#33322E*/
-      }
-    
-      #navbar-img {
-        display: none;
-      }
-    
-      .navbar-li {
-        list-style: none;
-      }
-    
-      .navbar-li i {
-        color: #ffd700;
-        opacity: 0.7;
-        font-size: 130%;
-        height: 1.8rem;
-        transition: 1s;
-      }
-    
-      .navbar-li i:hover {
-        transform: scale(1.3, 1.3);
-        opacity: 1;
-      }
+  #userLoginPage {
+    background-color: #131414;
+  }
+  .navbar h1 > span {
+    color: #eeeeee; /*#33322E*/
+  }
 
-      .header-login{
-          background-color: #2B2A2C;
-          width: 100vw;
-      }
-    
-      .navbar-login {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        width: 95%;
-        margin: auto;
-        background-color: #2B2A2C;
-        height: 6rem;
-        margin-bottom: 2.5rem;      }
-    
-      .navbar-login ul {
-        padding: 0;
-        display: flex;
-      }
-    
-      .navbar-login a {
-        padding: 0rem 0.8rem;
-      }
-    
-      .navbar-li i.fas.fa-user,
-      .navbar-li.config {
-        padding: 0 0.5rem;
-      }
-    
-      .container-topside {
-        display: grid;
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-        grid-template-rows: repeat(2, minmax(0, 1fr));
-        gap: 1rem;
-      }
-    
-      .container-topside div {
-        border-radius: 0.25rem;
-        background-color: #2B2A2C;
-        margin-right: 1rem;
-        margin-left: 1rem;
-        padding-right: 1rem;
-        padding-left: 1rem;
-      }
+  #navbar-img {
+    display: none;
+  }
 
-      #middle-lock{
-        grid-column: span 2 / span 2;
-        grid-row: span 2 / span 2;
-      }
-    
-      .container-topside div {
-        color: #8391a2;
-      }
-    
-      .container-topside div h2 {
-        color: rgb(170, 184, 197);
-      }
-    
-      .container-topside h3,
-      .container-topside p,
-      .container-topside p > span {
-        font-weight: 100;
-      }
-    
-      .container-topside div h3 i {
-        float: right;
-        font-size: 1.5rem;
-        padding-top: 1rem;
-      }
-    
-      .container-topside div h3,
-      .container-topside .text-complement {
-        font-size: 0.9rem;
-      }
-    
-      .container-topside div p > span.percentage-green {
-        color: #0acf97;
-      }
-    
-      .container-topside div p > span.percentage-red {
-        color: #fa5c7c;
-      }
-    
-      .title-content {
-        color: rgb(170, 184, 197);
-        margin: 1rem;
-      }
+  .navbar-li {
+    list-style: none;
+  }
+
+  .navbar-li i {
+    color: #ffd700;
+    opacity: 0.7;
+    font-size: 130%;
+    height: 1.8rem;
+    transition: 1s;
+  }
+
+  .navbar-li i:hover {
+    transform: scale(1.3, 1.3);
+    opacity: 1;
+  }
+
+  .header-login {
+    background-color: #2b2a2c;
+    width: 100vw;
+  }
+
+  .navbar-login {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 95%;
+    margin: auto;
+    background-color: #2b2a2c;
+    height: 6rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .navbar-login ul {
+    padding: 0;
+    display: flex;
+  }
+
+  .navbar-login a {
+    padding: 0rem 0.8rem;
+  }
+
+  .navbar-li i.fas.fa-user,
+  .navbar-li.config {
+    padding: 0 0.5rem;
+  }
+
+  .container-topside {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-rows: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .container-topside div {
+    border-radius: 0.25rem;
+    background-color: #2b2a2c;
+    margin-right: 1rem;
+    margin-left: 1rem;
+    padding-right: 1rem;
+    padding-left: 1rem;
+  }
+
+  #middle-lock {
+    grid-column: span 2 / span 2;
+    grid-row: span 2 / span 2;
+  }
+
+  .container-topside div {
+    color: #8391a2;
+  }
+
+  .container-topside div h2 {
+    color: rgb(170, 184, 197);
+  }
+
+  .container-topside h3,
+  .container-topside p,
+  .container-topside p > span {
+    font-weight: 100;
+  }
+
+  .container-topside div h3 i {
+    float: right;
+    font-size: 1.5rem;
+    padding-top: 1rem;
+  }
+
+  .container-topside div h3,
+  .container-topside .text-complement {
+    font-size: 0.9rem;
+  }
+
+  .container-topside div p > span.percentage-green {
+    color: #0acf97;
+  }
+
+  .container-topside div p > span.percentage-red {
+    color: #fa5c7c;
+  }
+
+  .title-content {
+    color: rgb(170, 184, 197);
+    margin: 1rem;
+  }
 }
 
 /* all divices */
+#dashboard {
+  width: 90%;
+  margin: auto;
+}
