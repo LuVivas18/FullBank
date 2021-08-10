@@ -1,3 +1,4 @@
+/* Small divices */
 @media (min-width: 320px) and (max-width: 768px) {
   img {
     display: flex;
@@ -42,6 +43,7 @@
   }
 }
 
+/* Tablets */
 @media (min-width: 769px) {
   body {
     background: url(image/bg2.png) no-repeat;
@@ -110,6 +112,8 @@
   }
 }
 
+/* More than 769px */
+
 body {
   margin: 0;
   padding: 0;
@@ -120,6 +124,7 @@ body {
   color: grey;
 }
 
+/* Styles for register and login boxes */
 .register-box,
 .login-box {
   display: flex;
@@ -129,6 +134,7 @@ body {
   color: white;
 }
 
+/* Style for register and login h1*/
 .register-box h1,
 .login-box h1 {
   width: 10rem;
@@ -142,7 +148,7 @@ body {
 .register-box h1 {
   width: 13rem;
 }
-
+/* text styles for register, login, navbar, inputs, buttons*/
 .text-box {
   overflow: hidden;
   font-size: 1.5rem;
@@ -150,6 +156,7 @@ body {
   padding: 0.5rem 0rem;
   border-bottom: 0.2rem solid #ffd700;
 }
+
 
 .navbar .text-box {
   border: 2px solid #ffd700;
@@ -178,14 +185,22 @@ body {
   border-radius: 10px;
 }
 
+.buttons {
+  width: min-content;
+}
+
 .btn:hover {
   background: #ffd700;
   border-color: white;
 }
 
+
+/* color for font */
 i {
-  color: #ffd700;
+  color: #ffd700; 
+
 }
+
 
 .register-box > p,
 .login-box > p {
@@ -232,7 +247,9 @@ i {
   opacity: 1;
   transition: 0.8s;
 }
+/* end of that styles */
 
+/* styles for big text */
 article {
   justify-content: center;
   margin: auto;
@@ -252,11 +269,11 @@ section article p {
   color: white;
 }
 
-.buttons {
-  width: min-content;
-}
 
-/* user Login */
+
+/* user Login (usuario logeado) */
+
+/* small divices */
 
 @media (min-width: 320px) and (max-width: 768px) {
   #userLoginPage {
