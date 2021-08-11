@@ -1,3 +1,77 @@
+/*contacto*/
+.go{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  width: 90%;
+}.container-body h2{
+  text-align: center;
+  color: white;
+  border-bottom: 0.1rem solid #ffd700;
+  margin-bottom: 1.5rem;
+  padding: 0.5rem 0rem;
+}
+.container-body iframe{
+  border-radius: 20px;
+}
+/*Login*/
+.espacio{
+  background-color: #2b2a2c;
+  width: 100vw;
+  height:5rem;
+}
+.cont-header{
+  width: 97%;
+  margin: auto;
+  display: flex;
+}.header h1{
+  text-align: center;
+  float: left;
+}
+.header-login {
+  width: 100%;
+  margin: 0;
+  position: fixed;
+  background-color: #2b2a2c;
+  height: 5rem;
+  margin-bottom: 2.5rem;
+  color: #ffd700;
+  z-index: 100;
+  border-bottom: 5px solid #ffd700;
+}
+
+#menu-bar{
+  display: none;
+}
+header label{
+  float: right;
+  font-size: 28px;
+  cursor: pointer;
+}
+.menu{
+  top: 5rem;
+  left: 0;
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  background: rgba(60, 60, 60, 0.822);
+  transition: all 0.8s;
+  transform: translateX(-100%);
+}.menu a{
+  display: block;
+  color: #ffd700;
+  height: 25px;
+  text-decoration: none;
+  padding: 15px;
+  border-bottom: 2px solid #706001;
+}.menu a:hover{
+  background: rgba(151, 141, 1, 0.301);
+}#menu-bar:checked ~ .menu{
+  transform: translateX(0);
+}
+
+
 /* Small divices */
 @media (min-width: 320px) and (max-width: 768px) {
   img {
@@ -388,7 +462,26 @@ section article p {
 }
 
 /* Laptops and Desktops */
-
+@media (min-width: 1024px) {
+  .menu{
+    position: static;
+    padding-bottom:  1rem;
+    width: auto;
+    height: auto;
+    transform: translateX(0%);
+    float: right;
+    display: flex;
+    background: transparent;
+  }
+  .menu a{
+      border: none;
+  }.menu a:hover{
+      background: none;
+  }
+  .cont-header label{
+      display: none;
+  }
+}
 @media (min-width: 769px) {
   #userLoginPage {
     background-color: #131414;
@@ -416,11 +509,6 @@ section article p {
   .navbar-li i:hover {
     transform: scale(1.3, 1.3);
     opacity: 1;
-  }
-
-  .header-login {
-    background-color: #2b2a2c;
-    width: 100vw;
   }
 
   .navbar-login {
