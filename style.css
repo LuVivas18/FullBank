@@ -1,3 +1,10 @@
+.perfilUS h2{
+  border-bottom: 0.2rem solid #ffd700;
+}.perfilUS i{
+  cursor: pointer;
+}.container-notification i{
+  cursor: pointer;
+}
 /*contacto*/
 .go{
   display: flex;
