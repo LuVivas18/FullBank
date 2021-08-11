@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/094a85b108.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>AllBank</title>
+</head>
+
+<body id="userLoginPage">
+    <header class="header-login">
+        <div class="navbar-login">
+            <a href="">
+                <li class="navbar-li config"><i class="fas fa-bars"></i></li>
+            </a>
+            <ul>
+                <a href="">
+                    <li class="navbar-li"><i class="fas fa-search"></i></li>
+                </a>
+                <a href="https://www.elnacional.com/">
+                    <li class="navbar-li"><i class="fas fa-globe-americas"></i></li>
+                </a>
+                <a href="">
+                    <li class="navbar-li"><i class="fas fa-bell"></i></li>
+                </a>
+                <a href="user-login-transfer.html">
+                    <li class="navbar-li"><i class="fas fa-cog"></i></li>
+                </a>
+                <a href="">
+                    <li class="navbar-li"><i class="fas fa-user"></i></li>
+                </a>
+            </ul>
+        </div>
+    </header>
+    <main>
+        <div class="transfer-box">
+            <h1>
+                Transfer
+            </h1>
+            
+
+            <div class="transfer-data">
+
+                <h2>From:</h2>
+
+                <div class="text-box">
+                    <i class="fas fa-user"></i>
+                    <input type="text" placeholder="name" id="FromName">
+                </div>
+
+                <div class="text-box">
+                    <i class="fas fa-lock"></i>
+                    <input type="text" placeholder="identification" id="FromID">
+                </div>
+            </div>
+
+            
+            <div class="transfer-data">
+                <h2>To:</h2>
+                <div class="text-box">
+                    <i class="fas fa-user"></i>
+                    <input type="text" placeholder="name" id="ToName">
+                </div>
+
+                <div class="text-box">
+                    <i class="fas fa-lock"></i>
+                    <input type="text" placeholder="identification" id="ToID">
+                </div>
+            </div>
+
+
+            <div class="transfer-data">
+                <h2 class="amount">Amount:</h2>
+                <div class="text-box">
+                    <i class="fas fa-lock"></i>
+                    <input type="text" placeholder="Amount" id="transfer">
+                </div>
+            </div>
+            <button class="btn" type="button" value="Sing in" id="btnAccept">
+                Accept
+            </button>
+        </div>
+    </main>
+    <script src="./index.js"></script>
+</body>
+
+</html>
