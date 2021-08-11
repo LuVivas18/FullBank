@@ -1,5 +1,6 @@
 import $ from 'jquery';
 import firebase from "firebase";
+import "firebase/database";
 import {
     Chart,
     ArcElement,
@@ -62,12 +63,16 @@ const firebaseConfig = {
     storageBucket: "fullbank-cd4f4.appspot.com",
     messagingSenderId: "311338410323",
     appId: "1:311338410323:web:3648c18197d731800501a6",
-    measurementId: "G-0TWZRXHQSQ"
+    measurementId: "G-0TWZRXHQSQ",
+    databaseURL: "https://fullbank-cd4f4-default-rtdb.firebaseio.com/",
+    storageBucket: "bucket.appspot.com"
 };
 
 firebase.initializeApp(firebaseConfig);
 
 class Autenticacion {
+
+    
     autEmailPassword (email, password) {
 
     }
@@ -112,7 +117,7 @@ class Autenticacion {
             // Signed 
             window.location = 'http://localhost:1234/user-login.html';
             // ...
-            console.log(userCredential);
+            console.log(userCredential)
         })
         .catch((error) => {
             alert("Usuario no registrado")
@@ -121,12 +126,10 @@ class Autenticacion {
 }
 
 
-
-
 $(()=>{
 
     $("#btnRegister").click(()=>{
-        console.log("Click")
+        alert("usuario registrado")
         const nombre = $('#user').val();
         const email = $('#email').val();
         const password = $('#password').val();
@@ -167,6 +170,52 @@ if (btnLogin){
         auth.verifyLogIn(email,password)
     });
 }
+
+const dbRef = firebase.database().ref();
+let  usersData;
+if (window.location.pathname==="/user-login-transfer.html"){
+    dbRef.child("data").get().then((snapshot) => {
+        if (snapshot.exists()) {
+          usersData = snapshot.val();
+        } else {
+          console.log("No data available");
+        }
+      }).catch((error) => {
+        console.error(error);
+      });
+}
+
+let btnAccept = document.getElementById("btnAccept");
+let saldo1 = 0;
+if (btnAccept){
+    btnAccept.addEventListener('click', function(){
+        // const FromName = document.getElementById("FromName").value;
+        const userId1 = parseInt(document.getElementById("FromID").value);
+        // const ToName = document.getElementById("ToName").value;
+        const userId2 = parseInt(document.getElementById("ToID").value);
+        const amount = parseFloat(document.getElementById("transfer").value);
+        usersData.forEach(user => {
+            if(user.identificacion === userId1) {
+                user.saldo -= amount;
+            }
+            if(user.identificacion === userId2) {
+                user.saldo += amount;
+            }
+        });
+
+        console.log('usersUpdated', usersData)
+        dbRef.child('data').set(usersData);
+        console.log('Transaccion exitosa!')
+    });
+    
+}
+
+
+
+
+
+
+
 
 
 // Our labels along the x-axis

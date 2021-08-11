@@ -113,14 +113,16 @@ header label{
     height: 1.8rem;
     transition: 1s;
   }
-  
+
   .register-box,
-  .login-box {
+  .login-box,
+  .transfer-box {
     height: auto;
   }
 
   .register-box h1,
-  .login-box h1 {
+  .login-box h1,
+  .transfer-box h1 {
     margin: 0px 0px 10px 0px;
   }
   section article h1 {
@@ -161,7 +163,8 @@ header label{
   }
 
   .register-box,
-  .login-box {
+  .login-box,
+  .transfer-box {
     height: calc(100vh - 91.2px);
   }
 
@@ -225,7 +228,8 @@ body {
 
 /* Styles for register and login boxes */
 .register-box,
-.login-box {
+.login-box,
+.transfer-box {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -235,13 +239,18 @@ body {
 
 /* Style for register and login h1*/
 .register-box h1,
-.login-box h1 {
+.login-box h1,
+.transfer-box h1 {
   width: 10rem;
   text-align: center;
   font-size: 3rem;
   border-bottom: 0.1rem solid #ffd700;
   margin-bottom: 1.5rem;
   padding: 0.5rem 0rem;
+}
+
+.transfer-box h1{
+  width: auto;
 }
 
 .register-box h1 {
@@ -627,4 +636,42 @@ section article p {
 #dashboard {
   width: 90%;
   margin: auto;
+}
+
+/* Transfer styles */
+
+@media (min-width: 320px) and (max-width: 768px) {
+  .transfer-data{
+    display: flex;
+    flex-direction: column;
+    margin: 2rem;
+  }
+    .transfer-data>h2{
+      margin: auto;
+    }
+}
+
+@media (min-width: 768px) {
+  .transfer-data{
+    display: flex;
+    justify-content: center;
+  }
+
+  .transfer-data>h2{
+    width: 68px;
+    margin: auto;
+    text-align: end;
+  }
+
+  .transfer-data{
+    display: flex;
+  }
+  
+  .transfer-data > .text-box {
+    margin: 2rem;
+  }
+
+  .amount{
+    display: none;
+  }
 }
