@@ -406,14 +406,14 @@ section article p {
     padding: 0 0.5rem;
   }
 
-  .container-topside {
+  .container-topside,.container-notification {
     display: grid;
     /* grid-template-columns: repeat(4, minmax(0, 1fr)); */
     /* grid-template-rows: repeat(4, minmax(0, 1fr)); */
     gap: 1rem;
   }
 
-  .container-topside div {
+  .container-topside div,.container-notification div{
     border-radius: 0.25rem;
     background-color: #2b2a2c;
     width: 80%;
@@ -422,36 +422,36 @@ section article p {
     padding-left: 1rem;
   }
 
-  .container-topside div {
+  .container-topside div,.container-notification div {
     color: #8391a2;
   }
 
-  .container-topside div h2 {
+  .container-topside div h2,.container-notification div h2 {
     color: rgb(170, 184, 197);
   }
 
-  .container-topside h3,
-  .container-topside p,
-  .container-topside p > span {
+  .container-topside h3,.container-notification h3 ,
+  .container-topside p,.container-notification p,
+  .container-topside p > span, .container-notification p > span {
     font-weight: 100;
   }
 
-  .container-topside div h3 i {
+  .container-topside div h3 i,.container-notification div h3 i{
     float: right;
     font-size: 1.5rem;
     padding-top: 1rem;
   }
 
   .container-topside div h3,
-  .container-topside .text-complement {
+  .container-topside .text-complement ,.container-notification div h3 ,.container-notification .text-complement{
     font-size: 0.9rem;
   }
 
-  .container-topside div p > span.percentage-green {
+  .container-topside div p > span.percentage-green, .container-notification div p > span.percentage-green{
     color: #0acf97;
   }
 
-  .container-topside div p > span.percentage-red {
+  .container-topside div p > span.percentage-red, .container-notification div p > span.percentage-red{
     color: #fa5c7c;
   }
 
@@ -542,8 +542,13 @@ section article p {
     grid-template-rows: repeat(2, minmax(0, 1fr));
     gap: 1rem;
   }
+  .container-notification {
+    display: grid;
+    grid-template-rows: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
 
-  .container-topside div {
+  .container-topside div,.container-notification div {
     border-radius: 0.25rem;
     background-color: #2b2a2c;
     margin-right: 1rem;
@@ -557,36 +562,36 @@ section article p {
     grid-row: span 2 / span 2;
   }
 
-  .container-topside div {
+  .container-topside div,.container-notification div {
     color: #8391a2;
   }
 
-  .container-topside div h2 {
+  .container-topside  div h2 ,.container-notification div h2 {
     color: rgb(170, 184, 197);
   }
 
-  .container-topside h3,
-  .container-topside p,
-  .container-topside p > span {
+  .container-topside h3 ,.container-notification h3,
+  .container-topside p,.container-notification p,
+  .container-topside  p, .container-notification p > span {
     font-weight: 100;
   }
 
-  .container-topside div h3 i {
+  .container-topside div h3 i,.container-notification div h3 i {
     float: right;
     font-size: 1.5rem;
     padding-top: 1rem;
   }
 
-  .container-topside div h3,
-  .container-topside .text-complement {
+  .container-topside div h3, .container-notification div h3,
+  .container-topside .text-complement, .container-notification .text-complement {
     font-size: 0.9rem;
   }
 
-  .container-topside div p > span.percentage-green {
+  .container-topside div p > span.percentage-green,.container-notification div p > span.percentage-green {
     color: #0acf97;
   }
 
-  .container-topside div p > span.percentage-red {
+  .container-topside  div p > span.percentage-red,.container-notification div p > span.percentage-red {
     color: #fa5c7c;
   }
 
