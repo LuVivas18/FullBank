@@ -490,10 +490,10 @@ section article p {
 /* Laptops and Desktops */
 @media (min-width: 1024px) {
   .cont-header h1{
-    grid-column: span 6 ;
+    grid-column: span 4 ;
   }
   .menu{
-    grid-column: span 4;
+    grid-column: span 6;
     position:static;
     padding-top: 1rem;
     width: auto;
