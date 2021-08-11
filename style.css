@@ -1,4 +1,8 @@
-.perfilUS h2{
+.container-topside h3 i{
+  cursor: pointer;
+}.cont-header h1{
+  grid-column: span 9 ;
+}.perfilUS h2{
   border-bottom: 0.2rem solid #ffd700;
 }.perfilUS i{
   cursor: pointer;
@@ -31,7 +35,8 @@
 .cont-header{
   width: 97%;
   margin: auto;
-  display: flex;
+  display: grid;
+  grid-template-columns:  repeat(10,1fr);
 }.header h1{
   text-align: center;
   float: left;
@@ -55,6 +60,8 @@ header label{
   float: right;
   font-size: 28px;
   cursor: pointer;
+  grid-column: span 1;
+  padding-top: 25px;
 }
 .menu{
   top: 5rem;
@@ -62,6 +69,8 @@ header label{
   position: absolute;
   width: 100%;
   height: 100vh;
+  grid-column: span 1;
+  font-size: 20px;
   background: rgba(60, 60, 60, 0.822);
   transition: all 0.8s;
   transform: translateX(-100%);
@@ -360,6 +369,7 @@ section article p {
 /* small divices */
 
 @media (min-width: 320px) and (max-width: 768px) {
+  
   #userLoginPage {
     background-color: #131414;
   }
@@ -470,14 +480,19 @@ section article p {
 
 /* Laptops and Desktops */
 @media (min-width: 1024px) {
+  .cont-header h1{
+    grid-column: span 6 ;
+  }
   .menu{
-    position: static;
-    padding-bottom:  1rem;
+    grid-column: span 4;
+    position:static;
+    padding-top: 1rem;
     width: auto;
     height: auto;
     transform: translateX(0%);
     float: right;
-    display: flex;
+    display:flex;
+    
     background: transparent;
   }
   .menu a{
