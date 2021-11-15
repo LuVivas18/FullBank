@@ -1,0 +1,15 @@
+
+
+	Ideas para el front
+
+
+1) el index puede ser imagenes y poco texto
+2) Sign in and Sign up corregir los inputs
+3) Acomodar el navbar (Adicional, decidir si seran imagenes o palabras,
+se puede usar tooltips)
+4) Transfer (Si se va a utilizar) se puede decorar como notification (crear efecto 3D)
+5) Learn more es donde va la info secundaria de las criptos (la primaria va en el homepage)
+6) Acomodar mejor profile
+7) ajustar bien las dimensiones
+
+Todo esto es para que el front sea perfecto

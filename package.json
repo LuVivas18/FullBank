@@ -10,8 +10,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "chart.js": "^3.3.2",
-    "firebase": "^8.6.8",
+    "chart.js": "^3.5.1",
+    "firebase": "^8.10.0",
     "jquery": "^3.6.0"
   }
 }
