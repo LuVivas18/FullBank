@@ -201,7 +201,7 @@ if (btnAccept){
             if(user.identificacion === userId2) {
                 user.saldo += amount;
             }
-        });
+        }); 
 
         console.log('usersUpdated', usersData)
         dbRef.child('data').set(usersData);
