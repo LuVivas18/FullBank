@@ -1,15 +1,15 @@
-@import url('https://fonts.googleapis.com/css2?family=M+PLUS+Code+Latin:wght@300&family=Montagu+Slab:wght@200;400&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=M+PLUS+Code+Latin:wght@300&family=Montagu+Slab:wght@200;400&display=swap");
 
 .container-topside h3 i {
   cursor: pointer;
 }
 .cont-header h1 {
   grid-column: span 9;
-  COLOR: #ffd700;
+  color: #ffd700;
 }
-.perfilUS{
-box-shadow: 0px 0px 5px 1px #ffd700;
-/* margin: 1rem; */
+.perfilUS {
+  box-shadow: 0px 0px 5px 1px #ffd700;
+  /* margin: 1rem; */
 }
 .perfilUS i {
   cursor: pointer;
@@ -17,7 +17,7 @@ box-shadow: 0px 0px 5px 1px #ffd700;
 .container-notification i {
   cursor: pointer;
 }
-.container-notification > div{
+.container-notification > div {
   box-shadow: 0px 0px 5px 0px #ffd700;
 }
 /*contacto*/
@@ -51,17 +51,17 @@ box-shadow: 0px 0px 5px 1px #ffd700;
   grid-template-columns: repeat(10, 1fr);
 }
 
-.cont-header a{
+.cont-header a {
   opacity: 0.7;
   transition: all 0.8s;
 }
 
-.cont-header a:hover{
+.cont-header a:hover {
   opacity: 1;
 }
 
-.cont-header>h1>  span{
-  color:white;
+.cont-header > h1 > span {
+  color: white;
 }
 
 .header h1 {
@@ -80,8 +80,8 @@ box-shadow: 0px 0px 5px 1px #ffd700;
   border-bottom: 5px solid #ffd700;
 }
 
- /* Tooltip container */
- .tooltip {
+/* Tooltip container */
+.tooltip {
   position: relative;
   display: inline-block;
   border-bottom: 1px dotted black;
@@ -90,7 +90,6 @@ box-shadow: 0px 0px 5px 1px #ffd700;
 
 /* Tooltip text */
 .tooltip .tooltiptext {
-
   visibility: hidden;
   width: 120px;
   background-color: black;
@@ -153,9 +152,56 @@ header label {
 
 /* Small divices */
 @media (min-width: 320px) and (max-width: 768px) {
+  .welcome img {
+    width: 80%;
+    margin: auto;
+  }
+
+  .btn {
+    margin-top: 6.5rem;
+    width: 15rem;
+    background: none;
+    border: 2px solid #ffd700;
+    color: white;
+    padding: 30px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 1.5s;
+    border-radius: 10px;
+    margin: auto;
+    display: block;
+  }
+
+  .container-body h2 {
+    text-align: center;
+    color: white;
+    border-bottom: 0.1rem solid #ffd700;
+    margin-bottom: 1.5rem;
+    padding: 0.5rem 0rem;
+    color: #f0f0f0;
+    margin-top: -2rem;
+    font-family: "M PLUS Code Latin", sans-serif;
+    font-size: 1rem;
+}
+
+  section article p {
+    color: white;
+    text-align: justify;
+    padding: 0px 30px;
+  }
+
+  .slogan {
+    color: #f0f0f0;
+    /* margin-left: 2rem; */
+    margin-top: -2rem;
+    font-family: "M PLUS Code Latin", sans-serif;
+    text-align: center;
+    font-size: 1rem;
+  }
+
   img {
     display: flex;
-    width: 50%;
+    width: 45%;
   }
 
   body {
@@ -209,6 +255,14 @@ header label {
     background-size: cover;
     background-position: center;
     height: 100vh;
+  }
+
+  .welcome {
+    display: flex;
+  }
+  .welcome img {
+    width: 500px;
+    margin: auto;
   }
 
   #userLoginPage {
@@ -274,6 +328,8 @@ header label {
 
 /* More than 769px */
 
+
+
 body {
   margin: 0;
   padding: 0;
@@ -337,18 +393,6 @@ body {
   margin: 0rem 0.5rem;
 }
 
-.btn {
-  margin-top: 1.5rem;
-  width: 15rem;
-  background: none;
-  border: 2px solid #ffd700;
-  color: white;
-  padding: 5px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: 1.5s;
-  border-radius: 10px;
-}
 
 .buttons {
   width: min-content;
@@ -422,7 +466,7 @@ section article h1 {
   font-size: 2.5rem;
   color: white;
   padding: 0rem 1.5rem;
-  font-family: 'Montagu Slab', serif;
+  font-family: "Montagu Slab", serif;
 }
 section article h1 span {
   color: #ffd700;
@@ -585,6 +629,18 @@ section article p {
   }
 }
 @media (min-width: 769px) {
+  .btn {
+    margin-top: 1.5rem;
+    width: 15rem;
+    background: none;
+    border: 2px solid #ffd700;
+    color: white;
+    padding: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 1.5s;
+    border-radius: 10px;
+  }
   #userLoginPage {
     background-color: #131414;
   }
