@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/094a85b108.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>AllBank</title>
+</head>
+
+<body id="userLoginPage">
+
+    <img class="cell-Logo" src="image/bg3.jpg" alt="">
+
+    <div class="cont-header">
+        <h1 class="fas fa-globe-americas"><span>All</span>Bank</h1>
+        <input type="checkbox" id="menu-bar">
+        <label class="fas fa-bars" for="menu-bar"></label>
+
+        <nav class="menu">
+            <div class="tooltip">
+                <a href="user-login.html" class="fas fa-users"> </a>
+                <span class="tooltiptext">Home</span>
+            </div>
+            <div class="tooltip">
+                <a href="user-login-transfer.html" class="fas fa-dollar-sign"></a>
+                <span class="tooltiptext">Transfer</span>
+            </div>
+            <div class="tooltip">
+                <a href="https://www.binance.com/es" class="fas fa-globe-americas" target="__blank"></a>
+                <span class="tooltiptext">Learn more</span>
+            </div>
+            <div class="tooltip">
+                <a href="user-notificaciones.html" class="fas fa-bell"></a>
+                <span class="tooltiptext">Notifications</span>
+            </div>
+            <div class="tooltip">
+                <a href="user-perfil.html" class="fas fa-user"></a>
+                <span class="tooltiptext">Profile</span>
+            </div>
+            <div class="tooltip">
+                <a href="index.html" class="fas fa-sign-out-alt"></a>
+                <span class="tooltiptext">Sign out</span>
+            </div>
+        </nav>
+    </div>
+
+
+
+
+
+    </header>
+    <div class="espacio"></div>
+    <main>
+        <main>
+            <h2 class="title-content" style="margin-left: 135px; margin-top: 25px;">Predictions</h2>
+            <div style="display: flex; justify-content: space-evenly; align-items: center;">
+                <img src="image/grafico2c.png" alt="" style="height: 520px; padding-top: 25px;">
+                <div id="selector">
+                    <style>
+                        #selector > .btn{
+                            background: #000;
+                            
+                        }
+                    </style>
+                    <select name="Cripto" class="btn">
+                        <option selected value="0"> Choose your Cripto </option>
+                        <optgroup label="More common">
+                            <option value="1">Bitcoin</option>
+                            <option value="2">Ether</option>
+                            <option value="3">Ripple</option>
+                        </optgroup>
+                        <optgroup label="Less common">
+                            <option value="10">Dodgecoin</option>
+                            <option value="11">Nanos</option>
+                            <option value="12">Bananos</option>
+                        </optgroup>
+                    </select>
+                </div>
+            </div>
+
+        </main>
+    </main>
+    <script src="./index.js"></script>
+</body>
+
+</html>
