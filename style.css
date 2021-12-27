@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=M+PLUS+Code+Latin:wght@300&family=Montagu+Slab:wght@200;400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=M+PLUS+Code+Latin:wght@300&family=Montagu+Slab:wght@200;400&display=swap"); /*Fonts*/
 
 .container-topside h3 i {
   cursor: pointer;
@@ -38,6 +38,7 @@
 .container-body iframe {
   border-radius: 20px;
 }
+
 /*Login*/
 .espacio {
   background-color: #ffd700;
@@ -98,20 +99,18 @@
   padding: 5px 0;
   border-radius: 6px;
 
-  /* Position the tooltip text - see examples below! */
   position: absolute;
   z-index: 1;
   top: 100%;
   left: 50%;
   margin-left: -60px;
-  /* Use half of the width (120/2 = 60), to center the tooltip */
 }
 
 /* Show the tooltip text when you mouse over the tooltip container */
 .tooltip:hover .tooltiptext {
   visibility: visible;
 }
-
+/* End of tooltip*/
 #menu-bar {
   display: none;
 }
@@ -158,17 +157,17 @@ header label {
   }
 
   .btn {
-    margin-top: 6.5rem;
     width: 15rem;
     background: none;
     border: 2px solid #ffd700;
     color: white;
-    padding: 30px;
+    padding: 1rem;
     font-size: 1rem;
     cursor: pointer;
     transition: 1.5s;
     border-radius: 10px;
     margin: auto;
+    margin-top: 5rem;
     display: block;
   }
 
@@ -245,6 +244,12 @@ header label {
   .buttons {
     margin: auto;
     margin-bottom: 1.5rem;
+  }
+
+  .cont-header > label.fas.fa-bars{
+    display: block;
+    margin: auto;
+    color: #ffd700;
   }
 }
 
@@ -324,6 +329,15 @@ header label {
   .button2 {
     margin: 0rem 4rem;
   }
+
+  .slogan {
+    color: #f0f0f0;
+    /* margin-left: 2rem; */
+    margin-top: -2rem;
+    font-family: "M PLUS Code Latin", sans-serif;
+    text-align: center;
+    font-size: 1rem;
+  }
 }
 
 /* More than 769px */
@@ -368,7 +382,7 @@ body {
 }
 
 .register-box h1 {
-  width: 13rem;
+  width: 18rem;
 }
 /* text styles for register, login, navbar, inputs, buttons*/
 .text-box {
@@ -628,6 +642,7 @@ section article p {
     display: none;
   }
 }
+
 @media (min-width: 769px) {
   .btn {
     margin-top: 1.5rem;
@@ -641,6 +656,11 @@ section article p {
     transition: 1.5s;
     border-radius: 10px;
   }
+
+  .navbar img{
+    display: none;
+  }
+
   #userLoginPage {
     background-color: #131414;
   }
@@ -781,10 +801,6 @@ section article p {
     margin-top: 0px;
   }
 
-  iframe.go {
-    margin: auto;
-  }
-
   .contactTitle {
     margin-bottom: 5rem;
   }
@@ -808,6 +824,10 @@ section article p {
   width: 90%;
   margin: auto;
   margin-top: 3rem;
+}
+
+iframe.go {
+  margin: auto;
 }
 
 /* Transfer styles */
