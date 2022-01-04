@@ -73,41 +73,41 @@ firebase.initializeApp(firebaseConfig);
 class Autenticacion {
 
     
-    autEmailPassword (email, password) {
+    // autEmailPassword (email, password) {
 
-    }
+    // }
 
-    crearCuentaEmailPassword (email,password,nombre){
-        firebase
-        .auth()
-        .createUserWithEmailAndPassword(email,password)
-        .then(result =>{
-            result.user.updateProfile({
-                displayName: nombre
-            })
-            const configuracion = {
-                url : 'http://localhost:1234/index.html'
-            }
-            result.user.sendEmailVerification()
-            .catch(error =>{
-                console.error(error)
-                alert("error")
-            })
-            firebase.auth().signOut()
+    // crearCuentaEmailPassword (email,password,nombre){
+    //     firebase
+    //     .auth()
+    //     .createUserWithEmailAndPassword(email,password)
+    //     .then(result =>{
+    //         result.user.updateProfile({
+    //             displayName: nombre
+    //         })
+    //         const configuracion = {
+    //             url : 'http://localhost:1234/index.html'
+    //         }
+    //         result.user.sendEmailVerification()
+    //         .catch(error =>{
+    //             console.error(error)
+    //             alert("error")
+    //         })
+    //         firebase.auth().signOut()
 
-            // $('.modal').modal('close')
+    //         // $('.modal').modal('close')
 
-            console.log(result);
+    //         console.log(result);
 
-        })
+    //     })
 
         
 
-        .catch(error =>{
-            console.error(error)
-            alert("error")
-        })
-    }
+    //     .catch(error =>{
+    //         console.error(error)
+    //         alert("error")
+    //     })
+    // }
 
     verifyLogIn(email,password) {
         firebase
@@ -126,39 +126,70 @@ class Autenticacion {
 }
 
 
-$(()=>{
+// $(()=>{
 
+
+//     $('btnInicioEmail').click(()=>{
+//         const email = $('#emailSesion').val();
+//         const password = $('#passwordSesion').val();
+
+//     })
+
+
+//     $('btnRegistrarse').click(() => {
+//         $('#modalSesion').modal('close');
+//         $('#modalRegistro').modal('open');
+
+          
+//     })
+
+//     $('btnSignIn').click(() => {
+//         $('#modalRegistro').modal('close');
+//         $('#modalSesion').modal('open');
+          
+//     })
+
+// })
+
+
+let btnRegister = document.getElementById("btnRegister");
+if (btnRegister){
     $("#btnRegister").click(()=>{
-        alert("usuario registrado")
-        const nombre = $('#user').val();
+        const full_name = $('#user').val();
         const email = $('#email').val();
         const password = $('#password').val();
-        const auth = new Autenticacion()
-        auth.crearCuentaEmailPassword(email,password,nombre)
+        const auth = firebase.auth();
+        const database = firebase.database();
+        
+        auth.createUserWithEmailAndPassword(email,password)
+        .then(function(){
+            var user = auth.currentUser;
+        
+            // Add this user to firebase Database
+            var database_ref = database.ref();
+        
+            // Create user data
+            var user_data = {
+                email: email,
+                full_name: full_name,
+                last_login: Date.now()
+            }
+        
+            database_ref.child('user/' + user.uid).set(user_data);
+
+            alert('User Created!');
+            window.location = 'http://localhost:1234/login.html';
+        })
+        .catch(function(error){
+            var error_code = error.code;
+            var error_message = error.message;
+        
+            alert(error_message);
+        });
     });
+}
 
 
-    $('btnInicioEmail').click(()=>{
-        const email = $('#emailSesion').val();
-        const password = $('#passwordSesion').val();
-
-    })
-
-
-    $('btnRegistrarse').click(() => {
-        $('#modalSesion').modal('close');
-        $('#modalRegistro').modal('open');
-
-          
-    })
-
-    $('btnSignIn').click(() => {
-        $('#modalRegistro').modal('close');
-        $('#modalSesion').modal('open');
-          
-    })
-
-})
 
 
 let btnLogin = document.getElementById("btnLogin");
@@ -166,8 +197,31 @@ if (btnLogin){
     btnLogin.addEventListener('click', function(){
         const email = document.getElementById("emailLogin").value;
         const password = document.getElementById("passLogin").value;
-        const auth = new Autenticacion()
-        auth.verifyLogIn(email,password)
+        const auth = firebase.auth();
+        const database = firebase.database();
+        auth.signInWithEmailAndPassword(email,password)
+        .then(function(){
+            var user = auth.currentUser;
+                
+            // Add this user to firebase Database
+            var database_ref = database.ref();
+
+            // Create user data
+            var user_data = {
+                last_login: Date.now()
+            }
+
+            database_ref.child('user/' + user.uid).update(user_data);
+        })
+        .catch(function(error){
+            var error_code = error.code;
+            var error_message = error.message;
+
+            alert(error_message);
+        });
+
+        const autha = new Autenticacion()
+        autha.verifyLogIn(email,password)
     });
 }
 
