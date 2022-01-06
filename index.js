@@ -156,6 +156,9 @@ let btnRegister = document.getElementById("btnRegister");
 if (btnRegister){
     $("#btnRegister").click(()=>{
         const full_name = $('#user').val();
+        const birthday = $('#birthday').val();
+        const phone = $('#phone').val();
+        const address = $('#address').val();
         const email = $('#email').val();
         const password = $('#password').val();
         const auth = firebase.auth();
@@ -172,6 +175,9 @@ if (btnRegister){
             var user_data = {
                 email: email,
                 full_name: full_name,
+                birthday: birthday,
+                phone: phone,
+                address: address,
                 last_login: Date.now()
             }
         
