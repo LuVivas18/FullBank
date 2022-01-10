@@ -1,4 +1,4 @@
-import $ from 'jquery';
+import $, { get } from 'jquery';
 import firebase from "firebase";
 import "firebase/database";
 import {
@@ -196,7 +196,50 @@ if (btnRegister){
 }
 
 
-
+let btnProfile = document.getElementById("user-perfil");
+if (btnProfile){
+    $("#user-perfil").click(()=>{
+        const full_name = $('#user').val();
+        const birthday = $('#birthday').val();
+        const phone = $('#phone').val();
+        const address = $('#address').val();
+        const email = $('#email').val();
+        const password = $('#password').val();
+        const auth = firebase.auth();
+        const database = firebase.database();
+        var ref = firebase.database().ref("user");
+        var childData;
+        ref.on("value", function(snapshot) {
+        snapshot.forEach(function(childSnapshot) {
+            childData = {...childSnapshot.val()}   
+            if (childSnapshot.val().full_name === "test"){
+                prof_name.value = childSnapshot.val().full_name;
+                prof_birthday.value = childSnapshot.val().birthday;
+                prof_email.value = childSnapshot.val().email;
+                prof_phone.value = childSnapshot.val().phone;
+                prof_phone2.value = "None";
+                prof_address.value = childSnapshot.val().address;
+            }
+        });
+        });
+        
+        // get(dbref.child()).then((snapshot)=>{
+        //     if (snapshot.exists()){
+        //         prof_name.value = snapshot.val().full_name;
+        //         prof_birthday.value = snapshot.val().birthday;
+        //         prof_email.value = snapshot.val().email;
+        //         prof_phone.value = snapshot.val().phone;
+        //         prof_address.value = snapshot.val().address;
+        //     }
+        //     else{
+        //         alert("No data found");
+        //     }
+        // })
+        // .catch((error)=>{
+        //     alert("unsuccessful, error"+error);
+        // });
+    });
+}
 
 let btnLogin = document.getElementById("btnLogin");
 if (btnLogin){

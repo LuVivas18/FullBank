@@ -38,7 +38,7 @@
                     <span class="tooltiptext">Notifications</span>
                 </div>
                 <div class="tooltip">
-                    <a href="user-perfil.html" class="fas fa-user"></a>
+                    <a class="fas fa-user" id="user-perfil"></a>
                     <span class="tooltiptext">Profile</span>
                 </div>
                 <div class="tooltip">
@@ -64,12 +64,12 @@
                     <h3><i class="fas fa-cog"></i></h3>
                     <h1>Basic information</h1>
                     <h2>
-                        Name: Luis vivas                          
+                        Name: <input type="text" id="prof_name">                      
                     </h2>
                     <p>
                     </p>
                     <h2>
-                        Date of birth: May 16, 2001                       
+                        Birthday: <input type="text" id="prof_birthday">                       
                     </h2>
                     <p>
                     </p>
@@ -85,29 +85,37 @@
                     <h3><i class="fas fa-cog"></i></h3>
                     <h1>Contact information</h1>
                     <h2>
-                        Email: vivassuarezid@gmail.com                          
+                        Email: <input type="text" id="prof_email">                         
                     </h2>
                     <p>
                     </p>
                     <h2>
-                        Phone: +58 414 - 7124998                          
+                        Phone: <input type="text" id="prof_phone">                            
                     </h2>
                     <p>
                         
                     </p>
                     <h2>
-                        Phone 2 (optional): +58 424 - 7180765                          
+                        Phone 2 (optional): <input type="text" id="prof_phone2">                           
                     </h2>
                     <p>
                     </p>
                     <h2>
-                        Address: Venezuela, Carabobo State, San Diego Calle la esmeralda House no 235                         
+                        Address: <input type="text" id="prof_address">                           
                     </h2>
                     <p>
                         Last modified: August 9, 2021
                     </p>
                 </div>
-            </div> 
+            </div>
+            <div class="info"> 
+                <button  class="btn" type="button" value="Sing in">
+                    Update   
+                </button>
+                <button  class="btn" type="button" value="Sing in">
+                    Search    
+                </button>
+            </div>
         </div>
     </main>
     <script src="./index.js"></script>

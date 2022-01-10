@@ -251,6 +251,17 @@ header label {
     margin: auto;
     color: #ffd700;
   }
+
+  .info {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    align-items: center;
+  }
+
+  .info > button{
+    margin: 1rem;
+  }
 }
 
 /* Tablets */
@@ -337,6 +348,16 @@ header label {
     font-family: "M PLUS Code Latin", sans-serif;
     text-align: center;
     font-size: 1rem;
+  }
+
+  .info {
+    display: flex;
+    justify-content: space-around;
+  }
+
+  .info > button{
+    padding: 1rem;
+    margin: 1rem;
   }
 }
 
