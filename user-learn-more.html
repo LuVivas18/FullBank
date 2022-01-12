@@ -56,9 +56,13 @@
     <div class="espacio"></div>
     <main>
         <main>
+            
             <h2 class="title-content" style="margin-left: 55px; margin-top: 25px;">Predictions</h2>
+            
             <div style="display: flex; justify-content: space-evenly; align-items: center;">
-                <img src="image/grafico2c.png" alt="" style="height: 520px; box-shadow: 0px 0px 5px 0px #ffd700;">
+                <canvas  id="PredictionsChart">
+
+                </canvas> 
                 <div id="selector">
                     <style>
                         #selector>.btn {
@@ -66,12 +70,13 @@
 
                         }
                     </style>
-                    <select name="Cripto" class="btn">
+                    <select name="Cripto" class="btn" id="Crypto">
                         <option selected value="0"> Choose your Cripto </option>
                         <optgroup label="More common">
                             <option value="1">Bitcoin</option>
                             <option value="2">Ether</option>
-                            <option value="3">Ripple</option>
+                            <option value="3">Litecoin</option>
+                            <option value="4">Dash</option>
                         </optgroup>
                         <optgroup label="Less common">
                             <option value="10">Dodgecoin</option>
@@ -79,17 +84,18 @@
                             <option value="12">Bananos</option>
                         </optgroup>
                     </select>
-                    <select name="Cripto" class="btn">
+                    <select name="Cripto" class="btn" id="Coin">
                         <option selected value="0"> Currency </option>
                         <optgroup label="More common">
-                            <option value="1">Euro</option>
-                            <option value="2">Dolar</option>
+                            <option value="1">Dolar</option>
+                            <option value="2">Euro</option>
                             <option value="3">Yen</option>
+                            <option value="4">Bolivares</option>
                         </optgroup>
                         <optgroup label="Less common">
                             <option value="10">Pesos Colombianos</option>
                             <option value="11">Pesos Mexicanos</option>
-                            <option value="12">Bolivares</option>
+                            
                         </optgroup>
                     </select>
                     <div class="elemento">
@@ -98,15 +104,18 @@
                             <i class="fas fa-bell"></i>
                         </h3>
 
-                        <h2 style="font-size: 20px;">
+                        <h2 style="font-size: 20px;" id='msj2'>
                             Time to invert!
                         </h2>
                         <p>
-                            <span class="percentage-green" style="font-size: 15px;">Estimated earnings of $1,500</span>
+                            <span class="percentage-green" style="font-size: 15px;" id="msj">Estimated earnings of $1,500</span>
                         </p>
                         <p>
                             <span class="text-complement"><a href=""></a></span>
                         </p>
+                        <button class="btn" type="button" value="" id="btnGrafica">
+                            Accept
+                        </button>
                     </div>
                     <style>
                         .elemento {

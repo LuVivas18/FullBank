@@ -429,3 +429,216 @@ var myChart = new Chart(ctx, {
     ]
   }
 });
+var predictionsG = []; 
+var cur = "";
+var actualsG = [];
+var NextDay=0;
+var hours = [];
+var USD=0;
+var EUR=0;
+var YEN=0;
+var BFS=0;
+var sexo = [];
+
+
+var kike = document.getElementById("PredictionsChart");
+var myChart = new Chart(kike, {
+        type: 'line',
+        data: {
+          labels: labelsG(predictionsG),
+          datasets: [
+            { 
+              data: predictionsG,
+              label: 'Actual',
+              borderColor: "#3e95cd",
+              borderWidth: 1,
+              fill: false,
+              radius: 2,
+            },
+            {
+              data: actualsG,
+              label: 'Predictions',
+              borderColor: "#19f26e",
+              borderWidth: 1,
+              fill: false,
+              radius: 2,
+            }]},});
+      
+var utc = new Date().toJSON().slice(0,10);
+var ref = firebase.database().ref("BTC");
+var childData;
+ref.on("value", function(snapshot) {
+snapshot.forEach(function(childSnapshot) {
+childData = {...childSnapshot.val()}   
+if (childSnapshot.val().fecha === utc){
+    predictionsG = childSnapshot.val().precios_predichos;
+    cur = childSnapshot.val().curva;
+    actualsG= childSnapshot.val().precios_reales;
+    NextDay = childSnapshot.val().predicion;
+    hours = childSnapshot.val().rama24;
+    }
+    });
+    });
+            
+            
+
+let btnGrafica = document.getElementById("btnGrafica");
+    if (btnGrafica){
+        btnGrafica.addEventListener('click', function(){
+            const crypto = parseInt( document.getElementById("Crypto").value);
+            const coin =  parseInt(document.getElementById("Coin").value);
+            utc = new Date().toJSON().slice(0,10);
+            switch (crypto) { // recolectar variables de base de datos
+                case 1: // bitcoin
+                    myChart.destroy()
+                    var ref = firebase.database().ref("BTC");
+                    var childData;
+                    ref.on("value", function(snapshot) {
+                    snapshot.forEach(function(childSnapshot) {
+                        childData = {...childSnapshot.val()}   
+                        if (childSnapshot.val().fecha === utc){
+                            predictionsG = childSnapshot.val().precios_predichos;
+                            cur = childSnapshot.val().curva;
+                            actualsG= childSnapshot.val().precios_reales;
+                            NextDay = childSnapshot.val().predicion;
+                            hours = childSnapshot.val().rama24;
+
+                        }
+                    });
+                    });
+                    
+                    break;
+                case 2: // etherum
+                    myChart.destroy()
+                    utc = new Date().toJSON().slice(0,10);
+                    var ref = firebase.database().ref("ETH");
+                    var childData;
+                    ref.on("value", function(snapshot) {
+                    snapshot.forEach(function(childSnapshot) {
+                        childData = {...childSnapshot.val()}   
+                        if (childSnapshot.val().fecha === utc){
+                            predictionsG = childSnapshot.val().precios_predichos;
+                            cur = childSnapshot.val().curva;
+                            actualsG= childSnapshot.val().precios_reales;
+                            NextDay = childSnapshot.val().predicion;
+                            hours = childSnapshot.val().rama24;
+                        }
+                    });
+                    });
+                    break;
+                case 3: //Litecoin
+                    predictionsG=0;
+                    actualsG = 0;
+                    NextDay=0;
+                    hours = [];
+                    break;
+                case 4://Dash
+                    predictionsG=0;
+                    actualsG = 0;
+                    NextDay=0;              
+                    hours = [];
+                    break;
+                default:
+                  console.log('Lo lamentamos, por ');
+              }
+              switch (coin) { // ver como recolectamos los precios
+                case 1: // USD
+                    
+                    break;
+                case 2: // EUR
+                    predictionsG=currencyExchange(predictionsG,USD,EUR);
+                    actualsG = currencyExchange(actualsG,USD,EUR);
+                    NextDay=currencyExchange(NextDay,USD,EUR);
+                    hours = currencyExchange(hours,USD,EUR);
+                    break;
+                case 3: //Litecoin
+                    predictionsG=currencyExchange(predictionsG,USD,YEN);
+                    actualsG = currencyExchange(actualsG,USD,YEN);
+                    NextDay=currencyExchange(NextDay,USD,YEN);
+                    hours = currencyExchange(hours,USD,YEN);
+                    break;
+                case 4://Dash
+                    predictionsG=currencyExchange(predictionsG,USD,BFS);
+                    actualsG = currencyExchange(actualsG,USD,BFS);
+                    NextDay=currencyExchange(NextDay,USD,BFS);   
+                    hours = currencyExchange(hours,USD,BFS);            
+                    break;
+                default:
+                  console.log('Lo lamentamos, por el momento no disponemos de ');
+              }
+              //let resultado = (actualsG[actualsG.length]-NextDay);
+              let resultado = (4000-4500); // prueba
+              var span = document.getElementById("msj");
+              var span2 = document.getElementById("msj2");
+              if(resultado<=0){
+                span.textContent = "Estimated losses of -$" + (-1*resultado);
+                span2.textContent = "Time to sell!";
+              }else{
+                span.textContent = "Estimated earnings of $" + resultado;
+                span2.textContent = "Time to invert!";
+              }
+              
+        
+        kike = document.getElementById("PredictionsChart");
+        myChart = new Chart(kike, {
+          type: 'line',
+          data: {
+            labels: labelsG(predictionsG),
+            datasets: [
+              { 
+                data: predictionsG,
+                label: 'Actual',
+                borderColor: "#3e95cd",
+                borderWidth: 1,
+                fill: false,
+                radius: 2,
+              },
+              {
+                data: actualsG,
+                label: 'Predictions',
+                borderColor: "#19f26e",
+                borderWidth: 1,
+                fill: false,
+                radius: 2,
+              }]},});
+        
+        });
+        
+
+    }
+
+    function currencyExchange(lista,division,multi) {
+        for (var i = 0; i < lista.length; i++) {
+            lista[i]= (lista[i]/division)*multi;
+         }
+        return lista;
+      }
+    function labelsG(lista) {
+        var labess=[];
+        for (var i = 0; i <= lista.length; i++) {
+            labess.push(i);
+         }
+        return labess;
+      }
+      
+              
+    var hoursP = document.getElementById("hoursPredictions");
+    var mChart = new Chart(hoursP, {
+    type: 'line',
+    data: {
+        labels: ['00:00','01:00','02:00','03:00','04:00','05:00','06:00','07:00','08:00','09:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00','19:00','20:00','21:00','22:00','23:00'],
+        datasets: [
+        { 
+            data: [],
+            label: 'Predictions hours',
+            borderColor: "#19f26e",
+            borderWidth: 1,
+            fill: false,
+            radius: 2,
+        },
+        ]},});
+
+    
+    
+
+     
