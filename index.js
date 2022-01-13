@@ -312,123 +312,67 @@ if (btnAccept){
     });
     
 }
+ /* Notificaciones */ 
+              
+ 
 
-
-
-
-
-
-
-
-
-// Our labels along the x-axis
-var years = ['Enero','Febrero','Marzo','Abril','Mayo'];
-// For drawing the lines
-var africa = [86,114,106,106,107];
-var europe = [168,170,178,190,203];
-var latinAmerica = [40,20,10,16,24];
-var northAmerica = [6,3,2,2,7,26];
-
-var ctx = document.getElementById("myChart");
-var myChart = new Chart(ctx, {
-  type: 'bar',
-  data: {
-    labels: years,
-    datasets: [
-      { 
-        data: africa,
-        label: '',
-        backgroundColor: [
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
-            'rgba(255, 206, 86, 0.2)',
-            'rgba(75, 192, 192, 0.2)',
-            'rgba(153, 102, 255, 0.2)',
-            'rgba(255, 159, 64, 0.2)'
-        ],
-        borderColor: [
-            'rgba(255, 99, 132, 1)',
-            'rgba(54, 162, 235, 1)',
-            'rgba(255, 206, 86, 1)',
-            'rgba(75, 192, 192, 1)',
-            'rgba(153, 102, 255, 1)',
-            'rgba(255, 159, 64, 1)'
-        ],
-        borderWidth: 1,
-        fill: false
-      },
-      {
-        data: europe,
-        label: '',
-        borderColor: "#3e95cd",
-        backgroundColor: [
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
-            'rgba(255, 206, 86, 0.2)',
-            'rgba(75, 192, 192, 0.2)',
-            'rgba(153, 102, 255, 0.2)',
-            'rgba(255, 159, 64, 0.2)'
-        ],
-        borderColor: [
-            'rgba(255, 99, 132, 1)',
-            'rgba(54, 162, 235, 1)',
-            'rgba(255, 206, 86, 1)',
-            'rgba(75, 192, 192, 1)',
-            'rgba(153, 102, 255, 1)',
-            'rgba(255, 159, 64, 1)'
-        ],
-        borderWidth: 1,
-        fill: false
-      },
-      {
-        data: latinAmerica,
-        label: '',
-        borderColor: "#3e95cd",
-        backgroundColor: [
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
-            'rgba(255, 206, 86, 0.2)',
-            'rgba(75, 192, 192, 0.2)',
-            'rgba(153, 102, 255, 0.2)',
-            'rgba(255, 159, 64, 0.2)'
-        ],
-        borderColor: [
-            'rgba(255, 99, 132, 1)',
-            'rgba(54, 162, 235, 1)',
-            'rgba(255, 206, 86, 1)',
-            'rgba(75, 192, 192, 1)',
-            'rgba(153, 102, 255, 1)',
-            'rgba(255, 159, 64, 1)'
-        ],
-        borderWidth: 1,
-        fill: false
-      },
-      {
-        data: northAmerica,
-        label: '',
-        borderColor: "#3e95cd",
-        backgroundColor: [
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
-            'rgba(255, 206, 86, 0.2)',
-            'rgba(75, 192, 192, 0.2)',
-            'rgba(153, 102, 255, 0.2)',
-            'rgba(255, 159, 64, 0.2)'
-        ],
-        borderColor: [
-            'rgba(255, 99, 132, 1)',
-            'rgba(54, 162, 235, 1)',
-            'rgba(255, 206, 86, 1)',
-            'rgba(75, 192, 192, 1)',
-            'rgba(153, 102, 255, 1)',
-            'rgba(255, 159, 64, 1)'
-        ],
-        borderWidth: 1,
-        fill: false
-      }
-    ]
+ function dates() {
+    var fechaInicio = new Date('2022-01-10');
+    var fechaFin    = new Date('2022-01-13');
+    var lista = []
+    while(fechaFin.getTime() >= fechaInicio.getTime()){
+        fechaInicio.setDate(fechaInicio.getDate() + 1);
+        lista.push(fechaInicio.getFullYear() + '-0' + (fechaInicio.getMonth() + 1) + '-' + fechaInicio.getDate());
+    }
+    return lista;
   }
-});
+let btnNotifications = document.getElementById("btnNotifications");
+    if (btnNotifications){
+        btnNotifications.addEventListener('click', function(){
+        utc = new Date().toJSON().slice(0,10);
+        var days = dates()
+        var tm = "";
+        var tm2 = "";
+        var td= "";
+        var tc= "";
+        var msj= [];
+        var msj2=[];
+        var dats=[];
+        var crt=[];
+        var cep = 1;
+        switch (cep) { // recolectar variables de base de datos
+                case 1: // bitcoin
+                    ref = firebase.database().ref("Notificaciones");
+                    childData;
+                    for (var i = 0; i < days.length; i++) {
+                        ref.on("value", function(snapshot) {
+                            snapshot.forEach(function(childSnapshot) {
+                                childData = {...childSnapshot.val()}   
+                                if (childSnapshot.val().labels ==="LTC" && childSnapshot.val().fecha === days[i]){
+                                    tm = childSnapshot.val().msj;
+                                    tm2 = childSnapshot.val().msj2;
+                                    td = childSnapshot.val().fecha;
+                                    tc = childSnapshot.val().labels;
+                                    msj.push(tm);
+                                    msj2.push(tm2);
+                                    crt.push(tc);
+                                    dats.push(td)
+                            }        
+                                });
+                                });
+                        
+                     }
+                     console.log(msj)
+                     console.log(msj2)
+                     console.log(crt)
+                     console.log(dats)
+                        break;
+                default:
+                  console.log('nada');
+
+     }});}
+    
+
 var predictionsG = []; 
 var cur = "";
 var actualsG = [];
@@ -439,7 +383,7 @@ var EUR=0.873975;
 var YEN=114.59;
 var BFS=4.64;
 var PESOC=3979.17;
-var sexo = [];
+
 
 
 var kike = document.getElementById("PredictionsChart");
@@ -480,7 +424,7 @@ if (childSnapshot.val().fecha === utc){
     }
     });
     });
-            
+           
     var hoursP = document.getElementById("hoursPredictions");
     var mChart = new Chart(hoursP, {
     type: 'line',
@@ -495,16 +439,16 @@ if (childSnapshot.val().fecha === utc){
             fill: false,
             radius: 2,
         },
-        ]},})           
+        ]},}) ;          
 
 
 let btnGrafica = document.getElementById("btnGrafica");
     if (btnGrafica){
         btnGrafica.addEventListener('click', function(){
-            const crypto = parseInt( document.getElementById("Crypto").value);
-            const coin =  parseInt(document.getElementById("Coin").value);
-            utc = new Date().toJSON().slice(0,10);
-            switch (crypto) { // recolectar variables de base de datos
+        const crypto = parseInt( document.getElementById("Crypto").value);
+        const coin =  parseInt(document.getElementById("Coin").value);
+        utc = new Date().toJSON().slice(0,10);
+        switch (crypto) { // recolectar variables de base de datos
                 case 1: // bitcoin
                     myChart.destroy()
                     mChart.destroy()
@@ -595,7 +539,7 @@ let btnGrafica = document.getElementById("btnGrafica");
                 default:
                   console.log('nada');
               }
-              switch (coin) { // ver como recolectamos los precios
+              switch (coin) { 
                 case 1: // USD
                     break;
                 case 2: // Euros
@@ -626,17 +570,17 @@ let btnGrafica = document.getElementById("btnGrafica");
                   console.log('nada');
               }
               
-              //console.log(actualsG[actualsG.length-1]); // ver esto
-              let resultado = (actualsG[actualsG.length-1]-NextDay);
-              var span = document.getElementById("msj");
-              var span2 = document.getElementById("msj2");
-              if(resultado<=0){
-                span.textContent = "Estimated losses of -$" + (-1*resultado);
-                span2.textContent = "Time to sell!";
-              }else{
-                span.textContent = "Estimated earnings of $" + resultado;
-                span2.textContent = "Time to invert!";
-              }
+        //console.log(actualsG[actualsG.length-1]); // ver esto
+        let resultado = (actualsG[actualsG.length-1]-NextDay);
+        var span = document.getElementById("msj");
+        var span2 = document.getElementById("msj2");
+        if(resultado<=0){
+            span.textContent = "Estimated losses of -$" + (-1*resultado);
+            span2.textContent = "Time to sell!";
+        }else{
+            span.textContent = "Estimated earnings of $" + resultado;
+            span2.textContent = "Time to invert!";
+        }
               
         
         kike = document.getElementById("PredictionsChart");
@@ -662,8 +606,8 @@ let btnGrafica = document.getElementById("btnGrafica");
                 radius: 2,
               }]},});
 
-               hoursP = document.getElementById("hoursPredictions");
-         mChart = new Chart(hoursP, {
+        hoursP = document.getElementById("hoursPredictions");
+        mChart = new Chart(hoursP, {
         type: 'line',
         data: {
             labels: ['00:00','01:00','02:00','03:00','04:00','05:00','06:00','07:00','08:00','09:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00','19:00','20:00','21:00','22:00','23:00'],
@@ -684,9 +628,11 @@ let btnGrafica = document.getElementById("btnGrafica");
         
 
     }
+    
     function currencyExchangeNextDay(day ,multi) {
         return day*multi;
     }
+    
     function currencyExchange(lista,multi) {
         for (var i = 0; i < lista.length; i++) {
             lista[i]= lista[i]*multi;
@@ -694,11 +640,9 @@ let btnGrafica = document.getElementById("btnGrafica");
         return lista;
       }
     
-      
-              
-   ;
-
     
+
+
     
 
      
