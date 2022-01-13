@@ -63,6 +63,7 @@
                 <canvas  id="PredictionsChart">
 
                 </canvas> 
+                
                 <div id="selector">
                     <style>
                         #selector>.btn {
@@ -78,11 +79,6 @@
                             <option value="3">Litecoin</option>
                             <option value="4">Dash</option>
                         </optgroup>
-                        <optgroup label="Less common">
-                            <option value="10">Dodgecoin</option>
-                            <option value="11">Nanos</option>
-                            <option value="12">Bananos</option>
-                        </optgroup>
                     </select>
                     <select name="Cripto" class="btn" id="Coin">
                         <option selected value="0"> Currency </option>
@@ -91,11 +87,10 @@
                             <option value="2">Euro</option>
                             <option value="3">Yen</option>
                             <option value="4">Bolivares</option>
+                            <option value="5">Pesos Colombianos</option>
                         </optgroup>
                         <optgroup label="Less common">
-                            <option value="10">Pesos Colombianos</option>
                             <option value="11">Pesos Mexicanos</option>
-                            
                         </optgroup>
                     </select>
                     <div class="elemento">
@@ -117,6 +112,9 @@
                             Accept
                         </button>
                     </div>
+                    <canvas  id="hoursPredictions">
+
+                    </canvas> 
                     <style>
                         .elemento {
                             border-radius: 0.25rem;

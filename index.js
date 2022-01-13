@@ -432,12 +432,13 @@ var myChart = new Chart(ctx, {
 var predictionsG = []; 
 var cur = "";
 var actualsG = [];
+var labelsG =[];
 var NextDay=0;
 var hours = [];
-var USD=0;
-var EUR=0;
-var YEN=0;
-var BFS=0;
+var EUR=0.873975;
+var YEN=114.59;
+var BFS=4.64;
+var PESOC=3979.17;
 var sexo = [];
 
 
@@ -445,25 +446,25 @@ var kike = document.getElementById("PredictionsChart");
 var myChart = new Chart(kike, {
         type: 'line',
         data: {
-          labels: labelsG(predictionsG),
+          labels: labelsG,
           datasets: [
             { 
               data: predictionsG,
-              label: 'Actual',
-              borderColor: "#3e95cd",
+              label: 'Predictions',
+              borderColor: "#19f26e" ,
               borderWidth: 1,
               fill: false,
               radius: 2,
             },
             {
               data: actualsG,
-              label: 'Predictions',
-              borderColor: "#19f26e",
+              label: 'Actual',
+              borderColor: "#3e95cd",
               borderWidth: 1,
               fill: false,
               radius: 2,
             }]},});
-      
+
 var utc = new Date().toJSON().slice(0,10);
 var ref = firebase.database().ref("BTC");
 var childData;
@@ -480,7 +481,22 @@ if (childSnapshot.val().fecha === utc){
     });
     });
             
-            
+    var hoursP = document.getElementById("hoursPredictions");
+    var mChart = new Chart(hoursP, {
+    type: 'line',
+    data: {
+        labels: ['00:00','01:00','02:00','03:00','04:00','05:00','06:00','07:00','08:00','09:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00','19:00','20:00','21:00','22:00','23:00'],
+        datasets: [
+        { 
+            data: hours,
+            label: 'Predictions hours',
+            borderColor: "#19f26e",
+            borderWidth: 1,
+            fill: false,
+            radius: 2,
+        },
+        ]},})           
+
 
 let btnGrafica = document.getElementById("btnGrafica");
     if (btnGrafica){
@@ -491,6 +507,7 @@ let btnGrafica = document.getElementById("btnGrafica");
             switch (crypto) { // recolectar variables de base de datos
                 case 1: // bitcoin
                     myChart.destroy()
+                    mChart.destroy()
                     var ref = firebase.database().ref("BTC");
                     var childData;
                     ref.on("value", function(snapshot) {
@@ -502,14 +519,16 @@ let btnGrafica = document.getElementById("btnGrafica");
                             actualsG= childSnapshot.val().precios_reales;
                             NextDay = childSnapshot.val().predicion;
                             hours = childSnapshot.val().rama24;
-
+                            labelsG = childSnapshot.val().labels;
+                            labelsG.push(utc);
+                            predictionsG.push(NextDay);
                         }
                     });
                     });
-                    
                     break;
                 case 2: // etherum
                     myChart.destroy()
+                    mChart.destroy()
                     utc = new Date().toJSON().slice(0,10);
                     var ref = firebase.database().ref("ETH");
                     var childData;
@@ -522,52 +541,93 @@ let btnGrafica = document.getElementById("btnGrafica");
                             actualsG= childSnapshot.val().precios_reales;
                             NextDay = childSnapshot.val().predicion;
                             hours = childSnapshot.val().rama24;
+                            labelsG = childSnapshot.val().labels;
+                            labelsG.push(utc);
+                            predictionsG.push(NextDay);
                         }
                     });
                     });
                     break;
                 case 3: //Litecoin
-                    predictionsG=0;
-                    actualsG = 0;
-                    NextDay=0;
-                    hours = [];
+                    myChart.destroy()
+                    mChart.destroy()
+                    utc = new Date().toJSON().slice(0,10);
+                    var ref = firebase.database().ref("LTC");
+                    var childData;
+                    ref.on("value", function(snapshot) {
+                    snapshot.forEach(function(childSnapshot) {
+                        childData = {...childSnapshot.val()}   
+                        if (childSnapshot.val().fecha === utc){
+                            predictionsG = childSnapshot.val().precios_predichos;
+                            cur = childSnapshot.val().curva;
+                            actualsG= childSnapshot.val().precios_reales;
+                            NextDay = childSnapshot.val().predicion;
+                            hours = childSnapshot.val().rama24;
+                            labelsG = childSnapshot.val().labels;
+                            labelsG.push(utc);
+                            predictionsG.push(NextDay);
+                        }
+                    });
+                    });
                     break;
                 case 4://Dash
-                    predictionsG=0;
-                    actualsG = 0;
-                    NextDay=0;              
-                    hours = [];
+                    myChart.destroy()
+                    mChart.destroy()
+                    utc = new Date().toJSON().slice(0,10);
+                    var ref = firebase.database().ref("DASH");
+                    var childData;
+                    ref.on("value", function(snapshot) {
+                    snapshot.forEach(function(childSnapshot) {
+                        childData = {...childSnapshot.val()}   
+                        if (childSnapshot.val().fecha === utc){
+                            predictionsG = childSnapshot.val().precios_predichos;
+                            cur = childSnapshot.val().curva;
+                            actualsG= childSnapshot.val().precios_reales;
+                            NextDay = childSnapshot.val().predicion;
+                            hours = childSnapshot.val().rama24;
+                            labelsG = childSnapshot.val().labels;
+                            labelsG.push(utc);
+                            predictionsG.push(NextDay);
+                        }
+                    });
+                    });
                     break;
                 default:
-                  console.log('Lo lamentamos, por ');
+                  console.log('nada');
               }
               switch (coin) { // ver como recolectamos los precios
                 case 1: // USD
-                    
                     break;
-                case 2: // EUR
-                    predictionsG=currencyExchange(predictionsG,USD,EUR);
-                    actualsG = currencyExchange(actualsG,USD,EUR);
-                    NextDay=currencyExchange(NextDay,USD,EUR);
-                    hours = currencyExchange(hours,USD,EUR);
+                case 2: // Euros
+                    predictionsG=currencyExchange(predictionsG,EUR);
+                    actualsG = currencyExchange(actualsG,EUR);
+                    NextDay=currencyExchangeNextDay(NextDay,EUR);
+                    hours = currencyExchange(hours,EUR);
                     break;
-                case 3: //Litecoin
-                    predictionsG=currencyExchange(predictionsG,USD,YEN);
-                    actualsG = currencyExchange(actualsG,USD,YEN);
-                    NextDay=currencyExchange(NextDay,USD,YEN);
-                    hours = currencyExchange(hours,USD,YEN);
+                case 3: //Yen
+                    predictionsG=currencyExchange(predictionsG,YEN);
+                    actualsG = currencyExchange(actualsG,YEN);
+                    NextDay=currencyExchangeNextDay(NextDay,YEN);
+                    hours = currencyExchange(hours,YEN);
                     break;
-                case 4://Dash
-                    predictionsG=currencyExchange(predictionsG,USD,BFS);
-                    actualsG = currencyExchange(actualsG,USD,BFS);
-                    NextDay=currencyExchange(NextDay,USD,BFS);   
-                    hours = currencyExchange(hours,USD,BFS);            
+                case 4://Bolivares venezolanos
+                    predictionsG=currencyExchange(predictionsG,BFS);
+                    actualsG = currencyExchange(actualsG,BFS);
+                    NextDay=currencyExchangeNextDay(NextDay,BFS); 
+                    hours = currencyExchange(hours,BFS);            
+                    break;
+                case 5://Peso colombiano
+                    predictionsG=currencyExchange(predictionsG,PESOC);
+                    actualsG = currencyExchange(actualsG,PESOC);
+                    NextDay=currencyExchangeNextDay(NextDay,PESOC); 
+                    hours = currencyExchange(hours,PESOC);            
                     break;
                 default:
-                  console.log('Lo lamentamos, por el momento no disponemos de ');
+                  console.log('nada');
               }
-              //let resultado = (actualsG[actualsG.length]-NextDay);
-              let resultado = (4000-4500); // prueba
+              
+              //console.log(actualsG[actualsG.length-1]); // ver esto
+              let resultado = (actualsG[actualsG.length-1]-NextDay);
               var span = document.getElementById("msj");
               var span2 = document.getElementById("msj2");
               if(resultado<=0){
@@ -583,60 +643,60 @@ let btnGrafica = document.getElementById("btnGrafica");
         myChart = new Chart(kike, {
           type: 'line',
           data: {
-            labels: labelsG(predictionsG),
+            labels: labelsG,
             datasets: [
               { 
                 data: predictionsG,
-                label: 'Actual',
-                borderColor: "#3e95cd",
+                label: 'Predictions',
+                borderColor: "#19f26e",
                 borderWidth: 1,
                 fill: false,
                 radius: 2,
               },
               {
                 data: actualsG,
-                label: 'Predictions',
-                borderColor: "#19f26e",
+                label: 'Actual',
+                borderColor: "#3e95cd",
                 borderWidth: 1,
                 fill: false,
                 radius: 2,
               }]},});
+
+               hoursP = document.getElementById("hoursPredictions");
+         mChart = new Chart(hoursP, {
+        type: 'line',
+        data: {
+            labels: ['00:00','01:00','02:00','03:00','04:00','05:00','06:00','07:00','08:00','09:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00','19:00','20:00','21:00','22:00','23:00'],
+            datasets: [
+            { 
+                data: hours,
+                label: 'Predictions hours',
+                borderColor: "#19f26e",
+                borderWidth: 1,
+                fill: false,
+                radius: 2,
+            },
+            ]},});
+
+
         
         });
         
 
     }
-
-    function currencyExchange(lista,division,multi) {
+    function currencyExchangeNextDay(day ,multi) {
+        return day*multi;
+    }
+    function currencyExchange(lista,multi) {
         for (var i = 0; i < lista.length; i++) {
-            lista[i]= (lista[i]/division)*multi;
+            lista[i]= lista[i]*multi;
          }
         return lista;
       }
-    function labelsG(lista) {
-        var labess=[];
-        for (var i = 0; i <= lista.length; i++) {
-            labess.push(i);
-         }
-        return labess;
-      }
+    
       
               
-    var hoursP = document.getElementById("hoursPredictions");
-    var mChart = new Chart(hoursP, {
-    type: 'line',
-    data: {
-        labels: ['00:00','01:00','02:00','03:00','04:00','05:00','06:00','07:00','08:00','09:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00','19:00','20:00','21:00','22:00','23:00'],
-        datasets: [
-        { 
-            data: [],
-            label: 'Predictions hours',
-            borderColor: "#19f26e",
-            borderWidth: 1,
-            fill: false,
-            radius: 2,
-        },
-        ]},});
+   ;
 
     
     
