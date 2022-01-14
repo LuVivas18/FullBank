@@ -358,6 +358,7 @@ if (btnAccept){
         fechaInicio.setDate(fechaInicio.getDate() + 1);
         lista.push(fechaInicio.getFullYear() + '-0' + (fechaInicio.getMonth() + 1) + '-' + fechaInicio.getDate());
     }
+    lista = lista.reverse();
     return lista;
   }
 let btnNotifications = document.getElementById("btnNotifications");
@@ -365,6 +366,7 @@ let btnNotifications = document.getElementById("btnNotifications");
         btnNotifications.addEventListener('click', function(){
         utc = new Date().toJSON().slice(0,10);
         var days = dates()
+        var cryp = ["BTC","ETH","DASH","LTC"]
         var tm = "";
         var tm2 = "";
         var td= "";
@@ -379,23 +381,27 @@ let btnNotifications = document.getElementById("btnNotifications");
                     ref = firebase.database().ref("Notificaciones");
                     childData;
                     for (var i = 0; i < days.length; i++) {
-                        ref.on("value", function(snapshot) {
-                            snapshot.forEach(function(childSnapshot) {
-                                childData = {...childSnapshot.val()}   
-                                if (childSnapshot.val().labels ==="LTC" && childSnapshot.val().fecha === days[i]){
-                                    tm = childSnapshot.val().msj;
-                                    tm2 = childSnapshot.val().msj2;
-                                    td = childSnapshot.val().fecha;
-                                    tc = childSnapshot.val().labels;
-                                    msj.push(tm);
-                                    msj2.push(tm2);
-                                    crt.push(tc);
-                                    dats.push(td)
-                            }        
-                                });
-                                });
+                        for (var j = 0; j < cryp.length; j++) {
+                            ref.on("value", function(snapshot) {
+                                snapshot.forEach(function(childSnapshot) {
+                                    childData = {...childSnapshot.val()}   
+                                    if (childSnapshot.val().labels ===cryp[j] && childSnapshot.val().fecha === days[i]){
+                                        tm = childSnapshot.val().msj;
+                                        tm2 = childSnapshot.val().msj2;
+                                        td = childSnapshot.val().fecha;
+                                        tc = childSnapshot.val().labels;
+                                        msj.push(tm);
+                                        msj2.push(tm2);
+                                        crt.push(tc);
+                                        dats.push(td)
+                                }        
+                                    });
+                                    });
+                            
+                         }
                         
                      }
+                    
                      console.log(msj)
                      console.log(msj2)
                      console.log(crt)
@@ -405,6 +411,7 @@ let btnNotifications = document.getElementById("btnNotifications");
                   console.log('nada');
 
      }});}
+    
     
 
 var predictionsG = []; 
@@ -479,9 +486,15 @@ if (childSnapshot.val().fecha === utc){
 let btnGrafica = document.getElementById("btnGrafica");
     if (btnGrafica){
         btnGrafica.addEventListener('click', function(){
+            predictionsG = []; 
+         cur = "";
+         actualsG = [];
+         labelsG =[];
+         NextDay=0;
+         hours = [];
         const crypto = parseInt( document.getElementById("Crypto").value);
         const coin =  parseInt(document.getElementById("Coin").value);
-        utc = new Date().toJSON().slice(0,10);
+        utc = document.getElementById("Calendar").value;
         switch (crypto) { // recolectar variables de base de datos
                 case 1: // bitcoin
                     myChart.destroy()
@@ -498,7 +511,6 @@ let btnGrafica = document.getElementById("btnGrafica");
                             NextDay = childSnapshot.val().predicion;
                             hours = childSnapshot.val().rama24;
                             labelsG = childSnapshot.val().labels;
-                            labelsG.push(utc);
                             predictionsG.push(NextDay);
                         }
                     });
@@ -507,7 +519,7 @@ let btnGrafica = document.getElementById("btnGrafica");
                 case 2: // etherum
                     myChart.destroy()
                     mChart.destroy()
-                    utc = new Date().toJSON().slice(0,10);
+                    utc = document.getElementById("Calendar").value;
                     var ref = firebase.database().ref("ETH");
                     var childData;
                     ref.on("value", function(snapshot) {
@@ -520,7 +532,6 @@ let btnGrafica = document.getElementById("btnGrafica");
                             NextDay = childSnapshot.val().predicion;
                             hours = childSnapshot.val().rama24;
                             labelsG = childSnapshot.val().labels;
-                            labelsG.push(utc);
                             predictionsG.push(NextDay);
                         }
                     });
@@ -529,7 +540,7 @@ let btnGrafica = document.getElementById("btnGrafica");
                 case 3: //Litecoin
                     myChart.destroy()
                     mChart.destroy()
-                    utc = new Date().toJSON().slice(0,10);
+                    utc = document.getElementById("Calendar").value;
                     var ref = firebase.database().ref("LTC");
                     var childData;
                     ref.on("value", function(snapshot) {
@@ -542,7 +553,6 @@ let btnGrafica = document.getElementById("btnGrafica");
                             NextDay = childSnapshot.val().predicion;
                             hours = childSnapshot.val().rama24;
                             labelsG = childSnapshot.val().labels;
-                            labelsG.push(utc);
                             predictionsG.push(NextDay);
                         }
                     });
@@ -551,7 +561,7 @@ let btnGrafica = document.getElementById("btnGrafica");
                 case 4://Dash
                     myChart.destroy()
                     mChart.destroy()
-                    utc = new Date().toJSON().slice(0,10);
+                    utc =document.getElementById("Calendar").value;
                     var ref = firebase.database().ref("DASH");
                     var childData;
                     ref.on("value", function(snapshot) {
@@ -564,7 +574,6 @@ let btnGrafica = document.getElementById("btnGrafica");
                             NextDay = childSnapshot.val().predicion;
                             hours = childSnapshot.val().rama24;
                             labelsG = childSnapshot.val().labels;
-                            labelsG.push(utc);
                             predictionsG.push(NextDay);
                         }
                     });
@@ -608,15 +617,18 @@ let btnGrafica = document.getElementById("btnGrafica");
         let resultado = (actualsG[actualsG.length-1]-NextDay);
         var span = document.getElementById("msj");
         var span2 = document.getElementById("msj2");
+        var span3 = document.getElementById("msj3");
         if(resultado<=0){
             span.textContent = "Estimated losses of -$" + (-1*resultado);
             span2.textContent = "Time to sell!";
+            span3.textContent = "Estimated predictions for tomorrow $" + NextDay;
         }else{
             span.textContent = "Estimated earnings of $" + resultado;
             span2.textContent = "Time to invert!";
+            span3.textContent = "Estimated predictions for tomorrow $" + NextDay;
         }
-              
         
+             
         kike = document.getElementById("PredictionsChart");
         myChart = new Chart(kike, {
           type: 'line',
