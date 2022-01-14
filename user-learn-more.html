@@ -54,24 +54,18 @@
 
     </header>
     <div class="espacio"></div>
-    <main>
-        <main>
-            
-            <h2 class="title-content" style="margin-left: 55px; margin-top: 25px;">Predictions</h2>
-            
-            <div style="display: flex; justify-content: space-evenly; align-items: center;">
-                <canvas  id="PredictionsChart">
-
-                </canvas> 
+    <main> 
+        <h2 class="title-content" style="margin-left: 55px; margin-top: 25px;">Predictions</h2>
+        
+        <div id="predicciones">
+            <div class="l-sidebar">
+                <canvas  id="PredictionsChart"></canvas> 
+                <canvas  id="hoursPredictions"></canvas> 
+            </div>
+            <div class="r-sidebar">
                 
                 <div id="selector">
-                    <style>
-                        #selector>.btn {
-                            background: #000;
-
-                        }
-                    </style>
-                    <select name="Cripto" class="btn" id="Crypto">
+                    <select name="Cripto" class="btn" id="Crypto" style="background-color: #000;">
                         <option selected value="0"> Choose your Cripto </option>
                         <optgroup label="More common">
                             <option value="1">Bitcoin</option>
@@ -80,7 +74,7 @@
                             <option value="4">Dash</option>
                         </optgroup>
                     </select>
-                    <select name="Cripto" class="btn" id="Coin">
+                    <select name="Cripto" class="btn" id="Coin" style="    background-color: #000;">
                         <option selected value="0"> Currency </option>
                         <optgroup label="More common">
                             <option value="1">Dolar</option>
@@ -93,7 +87,11 @@
                             <option value="11">Pesos Mexicanos</option>
                         </optgroup>
                     </select>
-                    <div class="elemento">
+                    <input type="date" placeholder="MM/DD/YYYY" class="btn">
+                    <button class="btn" type="button" value="" id="btnGrafica">
+                        Accept
+                    </button>
+                    <div class="mensaje-1-LM">
                         <h3 style="color: #8391a2; margin: 0; font-size: 17px;">
                             Approximation
                             <i class="fas fa-bell"></i>
@@ -103,42 +101,32 @@
                             Time to invert!
                         </h2>
                         <p>
-                            <span class="percentage-green" style="font-size: 15px;" id="msj">Estimated earnings of $1,500</span>
+                            <span class="percentage-green" style="font-size: 15px" id="msj">Estimated earnings of $1,500</span>
                         </p>
                         <p>
                             <span class="text-complement"><a href=""></a></span>
                         </p>
-                        <button class="btn" type="button" value="" id="btnGrafica">
-                            Accept
-                        </button>
                     </div>
-                    <canvas  id="hoursPredictions">
+                    <div class="mensaje-1-LM">
+                        <h3 style="color: #8391a2; margin: 0; font-size: 17px;">
+                            Approximation
+                            <i class="fas fa-bell"></i>
+                        </h3>
 
-                    </canvas> 
-                    <style>
-                        .elemento {
-                            border-radius: 0.25rem;
-                            background-color: #2b2a2c;
-                            margin-top: 1rem;
-                            padding: 1rem;
-                            box-shadow: 0px 0px 5px 0px #ffd700;
-                            width: 410px;
-                            height: 110px;
-                            margin: 1rem auto;
-                        }
-
-                        .elemento>h3~h2 {
-                            color: rgb(170, 184, 197);
-                        }
-
-                        .elemento>p {
-                            color: #8391a2;
-                        }
-                    </style>
+                        <h2 style="font-size: 20px;" id='msj2'>
+                            Time to invert!
+                        </h2>
+                        <p>
+                            <span class="percentage-green" style="font-size: 15px" id="msj">Estimated earnings of $1,500</span>
+                        </p>
+                        <p>
+                            <span class="text-complement"><a href=""></a></span>
+                        </p>
+                    </div>
                 </div>
-            </div>
 
-        </main>
+            </div>
+        </div>
     </main>
     <script type="module" src="./index.js"></script>
 </body>

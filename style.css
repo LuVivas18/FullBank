@@ -634,6 +634,25 @@ section article p {
     color: rgb(170, 184, 197);
     margin: 1rem;
   }
+
+  .mensaje-1-LM {
+    border-radius: 0.25rem;
+    background-color: #000;
+    margin-top: 1rem;
+    padding: 1rem;
+    box-shadow: 0px 0px 5px 0px #ffd700;
+    width: 230px;
+    height: 110px;
+    margin: 1rem auto;
+}
+
+.mensaje-1-LM>h3~h2 {
+    color: rgb(170, 184, 197);
+}
+
+.mensaje-1-LM>p {
+    color: #8391a2;
+}
 }
 
 /* Laptops and Desktops */
@@ -838,9 +857,56 @@ section article p {
     display: block;
     padding: 2rem;
   }
+
+  .mensaje-1-LM {
+    border-radius: 0.25rem;
+    background-color: #131414;
+    margin-top: 1rem;
+    padding: 1rem;
+    box-shadow: 0px 0px 5px 0px #ffd700;
+    width: 230px;
+    height: 110px;
+    margin: 1rem auto;
+}
+
+.mensaje-1-LM>h3~h2 {
+    color: rgb(170, 184, 197);
+}
+
+.mensaje-1-LM>p {
+    color: #8391a2;
+}
+
+  /* #PredictionsChart{
+    width: 50% !important;
+  }
+
+  #hoursPredictions{
+    width: 50% !important;
+  } */
+  #predicciones{
+    display: flex;
+    min-height: 170%; 
+  }
+  .l-sidebar{
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    margin: auto;
+  }
+  .r-sidebar{
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+  }
+  .r-sidebar > #selector{
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 /* all divices */
+
 #dashboard {
   width: 90%;
   margin: auto;

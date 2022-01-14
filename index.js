@@ -196,18 +196,51 @@ if (btnRegister){
 }
 
 
-let btnProfile = document.getElementById("user-perfil");
-if (btnProfile){
-    $("#user-perfil").click(()=>{
-        const full_name = $('#user').val();
-        const birthday = $('#birthday').val();
-        const phone = $('#phone').val();
-        const address = $('#address').val();
-        const email = $('#email').val();
-        const password = $('#password').val();
+if (window.location.pathname==="/user-login.html"){
+    const database = firebase.database();
+    var database_ref = database.ref();
+    var ref = firebase.database().ref("sesion");
+    var lastloginSesion, childData2;
+    ref.on("value", function(snapshot) {
+    snapshot.forEach(function(childSnapshot) {
+        lastloginSesion = childSnapshot.val().last_login 
+        // if (childSnapshot.val().full_name === ""){
+        //     prof_name.value = childSnapshot.val().full_name;
+        //     prof_birthday.value = childSnapshot.val().birthday;
+        //     prof_email.value = childSnapshot.val().email;
+        //     prof_phone.value = childSnapshot.val().phone;
+        //     prof_phone2.value = "None";
+        //     prof_address.value = childSnapshot.val().address;
+        // }
+    });
+
+    });
+    var ref2 = firebase.database().ref("user");
+    var Uuser_data;
+    ref2.on("value", function(snapshot) {
+        snapshot.forEach(function(childSnapshot) {
+            childData2 = childSnapshot.val()
+            if (childSnapshot.val().last_login === lastloginSesion){
+                Uuser_data = {
+                    email: childSnapshot.val().email,
+                    full_name: childSnapshot.val().full_name,
+                    birthday: childSnapshot.val().birthday,
+                    phone: childSnapshot.val().phone,
+                    address: childSnapshot.val().address,
+                }
+                database_ref.child('sesion/ultimo_usuario').update(Uuser_data);
+                document.getElementById("titulo-dashboard").innerHTML = ('Dashboard - ' + childSnapshot.val().full_name); 
+            }
+        });
+    });
+    
+
+}
+
+if (window.location.pathname==="/user-perfil.html"){
         const auth = firebase.auth();
         const database = firebase.database();
-        var ref = firebase.database().ref("user");
+        var ref = firebase.database().ref("sesion");
         var childData;
         ref.on("value", function(snapshot) {
         snapshot.forEach(function(childSnapshot) {
@@ -238,8 +271,8 @@ if (btnProfile){
         // .catch((error)=>{
         //     alert("unsuccessful, error"+error);
         // });
-    });
-}
+    }
+
 
 let btnLogin = document.getElementById("btnLogin");
 if (btnLogin){
@@ -261,6 +294,7 @@ if (btnLogin){
             }
 
             database_ref.child('user/' + user.uid).update(user_data);
+            database_ref.child('sesion/ultimo_usuario').set(user_data);
         })
         .catch(function(error){
             var error_code = error.code;
