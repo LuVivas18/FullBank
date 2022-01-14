@@ -897,7 +897,7 @@ section article p {
   .r-sidebar{
     display: flex;
     flex-direction: column;
-    margin: auto;
+    margin: 0 auto;
   }
   .r-sidebar > #selector{
     display: flex;

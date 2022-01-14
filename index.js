@@ -151,6 +151,7 @@ class Autenticacion {
 
 // })
 
+// Registrarse 
 
 let btnRegister = document.getElementById("btnRegister");
 if (btnRegister){
@@ -161,6 +162,7 @@ if (btnRegister){
         const address = $('#address').val();
         const email = $('#email').val();
         const password = $('#password').val();
+        const amount = 10000;
         const auth = firebase.auth();
         const database = firebase.database();
         
@@ -178,6 +180,7 @@ if (btnRegister){
                 birthday: birthday,
                 phone: phone,
                 address: address,
+                amount: amount,
                 last_login: Date.now()
             }
         
@@ -193,7 +196,20 @@ if (btnRegister){
             alert(error_message);
         });
     });
-}
+};
+
+// insertando notificaciones
+if (window.location.pathname==='/user-notificaciones.html'){
+    const prueba = document.getElementById('probando');
+
+    for (let index = 0; index < 2; index++) {
+        const div = document.createElement('div');
+        div.innerHTML = '<h3>Message<i class="fas fa-bell"></i></h3><h2>Deposited money</h2><p><span class="percentage-green">15000$</span></p><p><span class="text-complement">Transaction number 5656232485456. successful please read the terms and conditions payment was made in BM for MY PAYMENT to your account. the Aho. 5267 at 5:03 PM on 08-10-2021 Ref. 015405222561 Inf: 0500-2262274</span></p>';
+        prueba.appendChild(div);
+    }
+
+
+};
 
 
 if (window.location.pathname==="/user-login.html"){
