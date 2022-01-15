@@ -321,65 +321,59 @@ if (window.location.pathname==="/user-login-transfer.html"){
     const database_ref = database.ref();
     const ref = firebase.database().ref("sesion");
     var id, envia;
+    var aux = "";
     var FromID = document.getElementById("FromID");
     ref.on("value", function(snapshot) {
     snapshot.forEach(function(childSnapshot) {
         id = childSnapshot.val().identificacion;
         envia = childSnapshot.val().amount;
+        aux = childSnapshot.val().userUID;
     });
 
     FromID.value = id;  
-    });
+    });}
 
 
     let btnAccept = document.getElementById("btnAccept");
     if (btnAccept){
         btnAccept.addEventListener('click', function(){
-            const ref2 = firebase.database().ref("user");
+            const database = firebase.database();
+            const database_ref = database.ref();
+            var ref2 = firebase.database().ref("user");
             var ToID = document.getElementById("ToID").value;
             var ToName = document.getElementById("ToName").value;
             var monto_enviar = document.getElementById("transfer").value;
-            var monto_recibido, resta, recibe;
+            var monto_recibido=0, resta=0, recibe=0;
+            var aux2="";
+            var childData;
             ref2.on("value", function(snapshot) {
             snapshot.forEach(function(childSnapshot) {
-                if (monto_enviar < envia){
+                childData = {...childSnapshot.val()}   
                     if (childSnapshot.val().identificacion === id){
-                            resta = envia - monto_enviar; // nuevo monto del usuario que envia
-                            database_ref.child('user/'+childSnapshot.val().userUID+'/amount').set(resta);
+                        envia = childSnapshot.val().amount;
+                        resta = envia - monto_enviar; // nuevo monto del usuario que envia
+                        aux = childSnapshot.val().userUID;
+                    } 
+                });
+                });
+                
+                ref2.on("value", function(snapshot) {
+                    snapshot.forEach(function(childSnapshot) {
+                    if (monto_enviar <= envia){
+                        if ((childSnapshot.val().full_name === ToName) && (childSnapshot.val().identificacion === ToID)){
+                            recibe = childSnapshot.val().amount; // el monto que tiene el que recibe
+                            aux2= childSnapshot.val().userUID; 
+                        }
                     }
-                    if ((childSnapshot.val().full_name === ToName) && (childSnapshot.val().identificacion === ToID)){
-                        recibe = childSnapshot.val().amount; // el monto que tiene el que recibe
-                        monto_recibido = parseInt(monto_enviar + recibe); // el nuevo monto del usuario que recibio
-                        database_ref.child('user/'+childSnapshot.val().userUID+'/amount').set(monto_recibido);
-                    }
+                    });
+                    });
+                if (monto_enviar <= envia){
+                    monto_recibido = parseInt(monto_enviar) + recibe; // el nuevo monto del usuario que recibio
+                    database_ref.child('user/'+aux+'/amount').set(resta); 
+                    database_ref.child('user/'+aux2+'/amount').set(monto_recibido);   
                 }else{
                     alert("saldo insuficiente");
                 }
-            });
-            
-
-            });
-        //     console.log(usersData);
-        //     // const FromName = document.getElementById("FromName").value;
-        //     const userId1 = parseInt(document.getElementById("FromID").value);
-        //     const ToName = document.getElementById("ToName").value;
-        //     const userId2 = parseInt(document.getElementById("ToID").value);
-        //     const amount = parseFloat(document.getElementById("transfer").value);
-        //     usersData.forEach(user => {
-        //         console.log(user.identificacion);
-        //         if(user.identificacion === userId1) {
-        //             user.saldo -= amount;
-        //         }
-        //         if((user.identificacion === userId2) && (user.full_name === ToName)) {
-        //             user.saldo += amount;
-        //         }
-        //     }); 
-
-        //     console.log('usersUpdated', usersData)
-        //     dbRef.child('data').set(usersData);
-        //     console.log('Transaccion exitosa!')
-        // });
-        
         });
     }
 
@@ -393,7 +387,7 @@ if (window.location.pathname==="/user-login-transfer.html"){
     //   }).catch((error) => {
     //     console.error(error);
     //   });
-}
+
 
 
 
@@ -445,7 +439,6 @@ if (window.location.pathname==="/user-login-transfer.html"){
                     msj2.push(tm2); 
                     crt.push(tc);
                     dats.push(td);
-                    console.log('holi');
                                 }else{
                                     console.log('no')
                                 }      
@@ -455,11 +448,6 @@ if (window.location.pathname==="/user-login-transfer.html"){
                          }
                         
                      }
-                    
-                     console.log(msj.length)
-                     console.log(msj2)
-                     console.log(crt)
-                     console.log(dats)
     for (let index = 0; index < msj.length; index++) {
         const div = document.createElement('div');
         const div2 = document.createElement('div');
@@ -555,15 +543,17 @@ if (childSnapshot.val().fecha === utc){
 let btnGrafica = document.getElementById("btnGrafica");
     if (btnGrafica){
         btnGrafica.addEventListener('click', function(){
-            predictionsG = []; 
+        predictionsG = []; 
          cur = "";
          actualsG = [];
          labelsG =[];
          NextDay=0;
          hours = [];
+         var k1="",k2="";
         const crypto = parseInt( document.getElementById("Crypto").value);
         const coin =  parseInt(document.getElementById("Coin").value);
         utc = document.getElementById("Calendar").value;
+        let LabelP = document.getElementById("LabelP");
         switch (crypto) { // recolectar variables de base de datos
                 case 1: // bitcoin
                     myChart.destroy()
@@ -584,6 +574,7 @@ let btnGrafica = document.getElementById("btnGrafica");
                         }
                     });
                     });
+                    k1 = 'BTC'
                     break;
                 case 2: // etherum
                     myChart.destroy()
@@ -605,6 +596,7 @@ let btnGrafica = document.getElementById("btnGrafica");
                         }
                     });
                     });
+                    k1 = 'ETH'
                     break;
                 case 3: //Litecoin
                     myChart.destroy()
@@ -626,6 +618,7 @@ let btnGrafica = document.getElementById("btnGrafica");
                         }
                     });
                     });
+                    k1 = 'LTC'
                     break;
                 case 4://Dash
                     myChart.destroy()
@@ -647,36 +640,42 @@ let btnGrafica = document.getElementById("btnGrafica");
                         }
                     });
                     });
+                    k1 = 'DASH'
                     break;
                 default:
                   console.log('nada');
               }
               switch (coin) { 
                 case 1: // USD
+                    k2 = 'USD'
                     break;
                 case 2: // Euros
                     predictionsG=currencyExchange(predictionsG,EUR);
                     actualsG = currencyExchange(actualsG,EUR);
                     NextDay=currencyExchangeNextDay(NextDay,EUR);
                     hours = currencyExchange(hours,EUR);
+                    k2 = 'EUR'
                     break;
                 case 3: //Yen
                     predictionsG=currencyExchange(predictionsG,YEN);
                     actualsG = currencyExchange(actualsG,YEN);
                     NextDay=currencyExchangeNextDay(NextDay,YEN);
                     hours = currencyExchange(hours,YEN);
+                    k2 = 'YEN'
                     break;
                 case 4://Bolivares venezolanos
                     predictionsG=currencyExchange(predictionsG,BFS);
                     actualsG = currencyExchange(actualsG,BFS);
                     NextDay=currencyExchangeNextDay(NextDay,BFS); 
-                    hours = currencyExchange(hours,BFS);            
+                    hours = currencyExchange(hours,BFS);  
+                    k2 = 'BsV'          
                     break;
                 case 5://Peso colombiano
                     predictionsG=currencyExchange(predictionsG,PESOC);
                     actualsG = currencyExchange(actualsG,PESOC);
                     NextDay=currencyExchangeNextDay(NextDay,PESOC); 
-                    hours = currencyExchange(hours,PESOC);            
+                    hours = currencyExchange(hours,PESOC);    
+                    k2 = 'COP'         
                     break;
                 default:
                   console.log('nada');
@@ -704,7 +703,7 @@ let btnGrafica = document.getElementById("btnGrafica");
             span3.textContent = "Estimated predictions for tomorrow $" + NextDay;
         }
         
-             
+        LabelP.textContent = "Predicciones (" + k1+"-"+k2+")";
         kike = document.getElementById("PredictionsChart");
         myChart = new Chart(kike, {
           type: 'line',
