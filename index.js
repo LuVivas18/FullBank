@@ -162,6 +162,7 @@ if (btnRegister){
         const address = $('#address').val();
         const email = $('#email').val();
         const password = $('#password').val();
+        const identificacion = $('#Identificacion-transfer').val();
         const amount = 10000;
         const auth = firebase.auth();
         const database = firebase.database();
@@ -180,6 +181,8 @@ if (btnRegister){
                 birthday: birthday,
                 phone: phone,
                 address: address,
+                identificacion: identificacion,
+                userUID: user.uid,
                 amount: amount,
                 last_login: Date.now()
             }
@@ -202,8 +205,8 @@ if (btnRegister){
 
 if (window.location.pathname==="/user-login.html"){
     const database = firebase.database();
-    var database_ref = database.ref();
-    var ref = firebase.database().ref("sesion");
+    const database_ref = database.ref();
+    const ref = firebase.database().ref("sesion");
     var lastloginSesion, childData2;
     ref.on("value", function(snapshot) {
     snapshot.forEach(function(childSnapshot) {
@@ -219,7 +222,7 @@ if (window.location.pathname==="/user-login.html"){
     });
 
     });
-    var ref2 = firebase.database().ref("user");
+    const ref2 = firebase.database().ref("user");
     var Uuser_data;
     ref2.on("value", function(snapshot) {
         snapshot.forEach(function(childSnapshot) {
@@ -231,6 +234,8 @@ if (window.location.pathname==="/user-login.html"){
                     birthday: childSnapshot.val().birthday,
                     phone: childSnapshot.val().phone,
                     address: childSnapshot.val().address,
+                    identificacion: childSnapshot.val().identificacion,
+                    amount: childSnapshot.val().amount
                 }
                 database_ref.child('sesion/ultimo_usuario').update(Uuser_data);
                 document.getElementById("titulo-dashboard").innerHTML = ('Dashboard - ' + childSnapshot.val().full_name); 
@@ -249,16 +254,13 @@ if (window.location.pathname==="/user-perfil.html"){
         ref.on("value", function(snapshot) {
         snapshot.forEach(function(childSnapshot) {
             childData = {...childSnapshot.val()}   
-            if (childSnapshot.val().full_name === "test"){
-                prof_name.value = childSnapshot.val().full_name;
-                prof_birthday.value = childSnapshot.val().birthday;
-                prof_email.value = childSnapshot.val().email;
-                prof_phone.value = childSnapshot.val().phone;
-                prof_phone2.value = "None";
-                prof_address.value = childSnapshot.val().address;
-            }
-        });
-        });
+            prof_name.value = childSnapshot.val().full_name;
+            prof_birthday.value = childSnapshot.val().birthday;
+            prof_email.value = childSnapshot.val().email;
+            prof_phone.value = childSnapshot.val().phone;
+            prof_phone2.value = "None";
+            prof_address.value = childSnapshot.val().address;
+            });
         
         // get(dbref.child()).then((snapshot)=>{
         //     if (snapshot.exists()){
@@ -275,7 +277,8 @@ if (window.location.pathname==="/user-perfil.html"){
         // .catch((error)=>{
         //     alert("unsuccessful, error"+error);
         // });
-    }
+    });
+};   
 
 
 let btnLogin = document.getElementById("btnLogin");
@@ -312,44 +315,89 @@ if (btnLogin){
     });
 }
 
-const dbRef = firebase.database().ref();
-let  usersData;
+
 if (window.location.pathname==="/user-login-transfer.html"){
-    dbRef.child("data").get().then((snapshot) => {
-        if (snapshot.exists()) {
-          usersData = snapshot.val();
-        } else {
-          console.log("No data available");
-        }
-      }).catch((error) => {
-        console.error(error);
-      });
-}
-
-let btnAccept = document.getElementById("btnAccept");
-let saldo1 = 0;
-if (btnAccept){
-    btnAccept.addEventListener('click', function(){
-        // const FromName = document.getElementById("FromName").value;
-        const userId1 = parseInt(document.getElementById("FromID").value);
-        // const ToName = document.getElementById("ToName").value;
-        const userId2 = parseInt(document.getElementById("ToID").value);
-        const amount = parseFloat(document.getElementById("transfer").value);
-        usersData.forEach(user => {
-            if(user.identificacion === userId1) {
-                user.saldo -= amount;
-            }
-            if(user.identificacion === userId2) {
-                user.saldo += amount;
-            }
-        }); 
-
-        console.log('usersUpdated', usersData)
-        dbRef.child('data').set(usersData);
-        console.log('Transaccion exitosa!')
+    const database = firebase.database();
+    const database_ref = database.ref();
+    const ref = firebase.database().ref("sesion");
+    var id, envia;
+    var FromID = document.getElementById("FromID");
+    ref.on("value", function(snapshot) {
+    snapshot.forEach(function(childSnapshot) {
+        id = childSnapshot.val().identificacion;
+        envia = childSnapshot.val().amount;
     });
-    
+
+    FromID.value = id;  
+    });
+
+
+    let btnAccept = document.getElementById("btnAccept");
+    if (btnAccept){
+        btnAccept.addEventListener('click', function(){
+            const ref2 = firebase.database().ref("user");
+            var ToID = document.getElementById("ToID").value;
+            var ToName = document.getElementById("ToName").value;
+            var monto_enviar = document.getElementById("transfer").value;
+            var monto_recibido, resta, recibe;
+            ref2.on("value", function(snapshot) {
+            snapshot.forEach(function(childSnapshot) {
+                if (monto_enviar < envia){
+                    if (childSnapshot.val().identificacion === id){
+                            resta = envia - monto_enviar; // nuevo monto del usuario que envia
+                            database_ref.child('user/'+childSnapshot.val().userUID+'/amount').set(resta);
+                    }
+                    if ((childSnapshot.val().full_name === ToName) && (childSnapshot.val().identificacion === ToID)){
+                        recibe = childSnapshot.val().amount; // el monto que tiene el que recibe
+                        monto_recibido = parseInt(monto_enviar + recibe); // el nuevo monto del usuario que recibio
+                        database_ref.child('user/'+childSnapshot.val().userUID+'/amount').set(monto_recibido);
+                    }
+                }else{
+                    alert("saldo insuficiente");
+                }
+            });
+            
+
+            });
+        //     console.log(usersData);
+        //     // const FromName = document.getElementById("FromName").value;
+        //     const userId1 = parseInt(document.getElementById("FromID").value);
+        //     const ToName = document.getElementById("ToName").value;
+        //     const userId2 = parseInt(document.getElementById("ToID").value);
+        //     const amount = parseFloat(document.getElementById("transfer").value);
+        //     usersData.forEach(user => {
+        //         console.log(user.identificacion);
+        //         if(user.identificacion === userId1) {
+        //             user.saldo -= amount;
+        //         }
+        //         if((user.identificacion === userId2) && (user.full_name === ToName)) {
+        //             user.saldo += amount;
+        //         }
+        //     }); 
+
+        //     console.log('usersUpdated', usersData)
+        //     dbRef.child('data').set(usersData);
+        //     console.log('Transaccion exitosa!')
+        // });
+        
+        });
+    }
+
+
+    // dbRef.child("user").get().then((snapshot) => {
+    //     if (snapshot.exists()) {
+    //       usersData = snapshot.val();
+    //     } else {
+    //       console.log("No data available");
+    //     }
+    //   }).catch((error) => {
+    //     console.error(error);
+    //   });
 }
+
+
+
+
  /* Notificaciones */ 
  function dates() {
     var fechaInicio = new Date('2022-01-10');
