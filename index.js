@@ -198,18 +198,6 @@ if (btnRegister){
     });
 };
 
-// insertando notificaciones
-if (window.location.pathname==='/user-notificaciones.html'){
-    const prueba = document.getElementById('probando');
-
-    for (let index = 0; index < 2; index++) {
-        const div = document.createElement('div');
-        div.innerHTML = '<h3>Message<i class="fas fa-bell"></i></h3><h2>Deposited money</h2><p><span class="percentage-green">15000$</span></p><p><span class="text-complement">Transaction number 5656232485456. successful please read the terms and conditions payment was made in BM for MY PAYMENT to your account. the Aho. 5267 at 5:03 PM on 08-10-2021 Ref. 015405222561 Inf: 0500-2262274</span></p>';
-        prueba.appendChild(div);
-    }
-
-
-};
 
 
 if (window.location.pathname==="/user-login.html"){
@@ -363,12 +351,9 @@ if (btnAccept){
     
 }
  /* Notificaciones */ 
-              
- 
-
  function dates() {
     var fechaInicio = new Date('2022-01-10');
-    var fechaFin    = new Date('2022-01-13');
+    var fechaFin    = new Date('2022-01-14');
     var lista = []
     while(fechaFin.getTime() >= fechaInicio.getTime()){
         fechaInicio.setDate(fechaInicio.getDate() + 1);
@@ -377,40 +362,45 @@ if (btnAccept){
     lista = lista.reverse();
     return lista;
   }
-let btnNotifications = document.getElementById("btnNotifications");
-    if (btnNotifications){
-        btnNotifications.addEventListener('click', function(){
-        utc = new Date().toJSON().slice(0,10);
+      
+ // insertando notificaciones
+ let Boton = document.getElementById("Boton");
+    if (Boton){
+        Boton.addEventListener('click', function(){
+            const prueba = document.getElementById('probando');
         var days = dates()
         var cryp = ["BTC","ETH","DASH","LTC"]
-        var tm = "";
-        var tm2 = "";
-        var td= "";
-        var tc= "";
+        let tm = "";
+        let tm2 = "";
+        let td= "";
+        let tc= "";
         var msj= [];
         var msj2=[];
         var dats=[];
         var crt=[];
-        var cep = 1;
-        switch (cep) { // recolectar variables de base de datos
-                case 1: // bitcoin
-                    ref = firebase.database().ref("Notificaciones");
-                    childData;
-                    for (var i = 0; i < days.length; i++) {
-                        for (var j = 0; j < cryp.length; j++) {
-                            ref.on("value", function(snapshot) {
-                                snapshot.forEach(function(childSnapshot) {
-                                    childData = {...childSnapshot.val()}   
-                                    if (childSnapshot.val().labels ===cryp[j] && childSnapshot.val().fecha === days[i]){
-                                        tm = childSnapshot.val().msj;
-                                        tm2 = childSnapshot.val().msj2;
-                                        td = childSnapshot.val().fecha;
-                                        tc = childSnapshot.val().labels;
-                                        msj.push(tm);
-                                        msj2.push(tm2);
-                                        crt.push(tc);
-                                        dats.push(td)
-                                }        
+        
+        var ref = firebase.database().ref("Notificaciones");
+        for (var i = 0; i < days.length; i++) {
+            
+            for (var j = 0; j < cryp.length; j++) {
+                ref.on("value", function(snapshot) {
+                snapshot.forEach(function(childSnapshot) {
+                childData = {...childSnapshot.val()} 
+                console.log(childSnapshot.val().labels)
+                if ((childSnapshot.val().labels ===cryp[j]) && (childSnapshot.val().fecha === days[i])){
+                    tm = childSnapshot.val().msj;
+                    tm2 = childSnapshot.val().msj2;
+                    td = childSnapshot.val().fecha;
+                    tc = childSnapshot.val().labels;
+                    console.log(tm)
+                    msj.push(tm);
+                    msj2.push(tm2); 
+                    crt.push(tc);
+                    dats.push(td);
+                    console.log('holi');
+                                }else{
+                                    console.log('no')
+                                }      
                                     });
                                     });
                             
@@ -418,15 +408,30 @@ let btnNotifications = document.getElementById("btnNotifications");
                         
                      }
                     
-                     console.log(msj)
+                     console.log(msj.length)
                      console.log(msj2)
                      console.log(crt)
                      console.log(dats)
-                        break;
-                default:
-                  console.log('nada');
+    for (let index = 0; index < msj.length; index++) {
+        const div = document.createElement('div');
+        const div2 = document.createElement('div');
+            div.innerHTML = '<h3>Message<i class="fas fa-bell"></i></h3><h2>Finanzas de '+crt[index]+'</h2><p><span class="percentage-green">Fecha: '+dats[index]+'</span></p><p><span class="text-complement">Fecha: '+msj[index]+'</span></p>';
+            prueba.appendChild(div);
+        
+            div2.innerHTML = '<h3>Message<i class="fas fa-bell"></i></h3><h2>Prediccion de '+crt[index]+'</h2><p><span class="percentage-green">Fecha: '+dats[index]+'</span></p><p><span class="text-complement">Fecha: '+msj2[index]+'</span></p>';
+            prueba.appendChild(div2);
+        
+        
+    }
 
-     }});}
+
+
+        })}
+
+
+ 
+        
+                        
     
     
 
@@ -634,10 +639,17 @@ let btnGrafica = document.getElementById("btnGrafica");
         var span = document.getElementById("msj");
         var span2 = document.getElementById("msj2");
         var span3 = document.getElementById("msj3");
+        
+
+        if (cur=="true"){
+            span3.textContent = "Estimated predictions for tomorrow $" + NextDay+" with an upward curve";
+        }else{
+            span3.textContent = "Estimated predictions for tomorrow $" + NextDay+" with a downward curve";
+        }
         if(resultado<=0){
             span.textContent = "Estimated losses of -$" + (-1*resultado);
             span2.textContent = "Time to sell!";
-            span3.textContent = "Estimated predictions for tomorrow $" + NextDay;
+            
         }else{
             span.textContent = "Estimated earnings of $" + resultado;
             span2.textContent = "Time to invert!";
