@@ -222,8 +222,10 @@ if (window.location.pathname==="/user-login.html"){
     });
 
     });
-    const ref2 = firebase.database().ref("user");
+    var ref2 = firebase.database().ref("user");
     var Uuser_data;
+    var estado=0;
+    var aux=0; 
     ref2.on("value", function(snapshot) {
         snapshot.forEach(function(childSnapshot) {
             childData2 = childSnapshot.val()
@@ -235,14 +237,77 @@ if (window.location.pathname==="/user-login.html"){
                     phone: childSnapshot.val().phone,
                     address: childSnapshot.val().address,
                     identificacion: childSnapshot.val().identificacion,
-                    amount: childSnapshot.val().amount
+                    amount: childSnapshot.val().amount,
+                    crypto: childSnapshot.val().crypto
                 }
                 database_ref.child('sesion/ultimo_usuario').update(Uuser_data);
-                document.getElementById("titulo-dashboard").innerHTML = ('Dashboard - ' + childSnapshot.val().full_name); 
+                document.getElementById("titulo-dashboard").innerHTML = ('Tablero de mandos - ' + childSnapshot.val().full_name);
+                document.getElementById("cuenta").innerHTML = ('$ ' + childSnapshot.val().amount);
+                estado = childSnapshot.val().amount;
+                document.getElementById("msj").innerHTML = ('Prediccion de la Criptomoneda ' + childSnapshot.val().crypto);
+                document.getElementById("Titulo").innerHTML = ('Proyecciones prox. 24hrs (' + childSnapshot.val().crypto+')');
+                document.getElementById("msj2").innerHTML = ('Crecimiento de Criptomoneda ' + childSnapshot.val().crypto);
+                document.getElementById("msj3").innerHTML = ('Conversion de su saldo en ' + childSnapshot.val().crypto);
+                
+                
+    var actualsG = [];
+    var NextDay=0;
+    var hours = [];
+    var ref3 = firebase.database().ref(childSnapshot.val().crypto);
+    utc = new Date('2022-01-14');
+    ref3.on("value", function(snapshot) {
+    snapshot.forEach(function(childSnapshot) {
+        childData = {...childSnapshot.val()} 
+        if (childSnapshot.val().fecha !== utc){
+            hours = childSnapshot.val().rama24;
+            actualsG= childSnapshot.val().precios_reales;
+            NextDay = childSnapshot.val().predicion;
+            
+            var Incremento = ( actualsG[actualsG.length-1] - actualsG[actualsG.length-2])/actualsG[actualsG.length-2] *100
+            
+            document.getElementById("Predc").innerHTML = ('$ ' + NextDay.toFixed(2));
+            var r = estado * actualsG[actualsG.length-1];
+            document.getElementById("gocho").innerHTML = ('💰 ' + r.toFixed(2));
+            if (Incremento<0){
+                document.getElementById("porcentajeC2").innerHTML = ('');
+                document.getElementById("porcentajeC1").innerHTML = ('En bajada');
+                document.getElementById("crecimiento").innerHTML = ('- % ' + (-1*Incremento.toFixed(2)));
+            }else{
+                document.getElementById("porcentajeC1").innerHTML = ('');
+                document.getElementById("porcentajeC2").innerHTML = ('En subida');
+                document.getElementById("crecimiento").innerHTML = ('% ' + Incremento.toFixed(2));
+            }
+            var hoursP = document.getElementById("myChart");
+            var mChart = new Chart(hoursP, {
+            type: 'line',
+            data: {
+                labels: ['00:00','01:00','02:00','03:00','04:00','05:00','06:00','07:00','08:00','09:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00','19:00','20:00','21:00','22:00','23:00'],
+                datasets: [
+                { 
+                    data: hours,
+                    label: 'Predictions hours',
+                    borderColor: "#19f26e",
+                    borderWidth: 1,
+                    fill: false,
+                    radius: 2,
+                },
+                ]},}) ;          
+                        }
+                    });
+                    });
+    
             }
         });
-    });
+    })
     
+    
+    
+    /*codigo para mostrar datos en home */
+    //Incremento porcentual = (Valor final – Valor inicial)/Valor inicial *100
+    
+    
+    
+
 
 }
 
@@ -689,18 +754,18 @@ let btnGrafica = document.getElementById("btnGrafica");
         
 
         if (cur=="true"){
-            span3.textContent = "Estimated predictions for tomorrow $" + NextDay+" with an upward curve";
+            span3.textContent = "Estimated predictions for tomorrow $" + NextDay.toFixed(3)+" with an upward curve";
         }else{
-            span3.textContent = "Estimated predictions for tomorrow $" + NextDay+" with a downward curve";
+            span3.textContent = "Estimated predictions for tomorrow $" + NextDay.toFixed(3)+" with a downward curve";
         }
         if(resultado<=0){
-            span.textContent = "Estimated losses of -$" + (-1*resultado);
+            span.textContent = "Estimated losses of -$" + (-1*resultado).toFixed(3);
             span2.textContent = "Time to sell!";
             
         }else{
-            span.textContent = "Estimated earnings of $" + resultado;
+            span.textContent = "Estimated earnings of $" + resultado.toFixed(3);
             span2.textContent = "Time to invert!";
-            span3.textContent = "Estimated predictions for tomorrow $" + NextDay;
+            span3.textContent = "Estimated predictions for tomorrow $" + NextDay.toFixed(3);
         }
         
         LabelP.textContent = "Predicciones (" + k1+"-"+k2+")";
