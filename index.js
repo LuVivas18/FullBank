@@ -164,6 +164,8 @@ if (btnRegister){
         const password = $('#password').val();
         const identificacion = $('#Identificacion-transfer').val();
         const amount = 10000;
+        const combo = document.getElementById("Crypto");
+        const selected = combo.options[combo.selectedIndex].text;
         const auth = firebase.auth();
         const database = firebase.database();
         
@@ -184,6 +186,7 @@ if (btnRegister){
                 identificacion: identificacion,
                 userUID: user.uid,
                 amount: amount,
+                fav_cripto: selected,
                 last_login: Date.now()
             }
         
@@ -238,31 +241,41 @@ if (window.location.pathname==="/user-login.html"){
                     address: childSnapshot.val().address,
                     identificacion: childSnapshot.val().identificacion,
                     amount: childSnapshot.val().amount,
-                    crypto: childSnapshot.val().crypto
+                    fav_cripto: childSnapshot.val().fav_cripto
                 }
                 database_ref.child('sesion/ultimo_usuario').update(Uuser_data);
                 document.getElementById("titulo-dashboard").innerHTML = ('Tablero de mandos - ' + childSnapshot.val().full_name);
                 document.getElementById("cuenta").innerHTML = ('$ ' + childSnapshot.val().amount);
                 estado = childSnapshot.val().amount;
-                document.getElementById("msj").innerHTML = ('Prediccion de la Criptomoneda ' + childSnapshot.val().crypto);
-                document.getElementById("Titulo").innerHTML = ('Proyecciones prox. 24hrs (' + childSnapshot.val().crypto+')');
-                document.getElementById("msj2").innerHTML = ('Crecimiento de Criptomoneda ' + childSnapshot.val().crypto);
-                document.getElementById("msj3").innerHTML = ('Conversion de su saldo en ' + childSnapshot.val().crypto);
+                document.getElementById("msj").innerHTML = ('Prediccion de la Criptomoneda ' + childSnapshot.val().fav_cripto);
+                document.getElementById("Titulo").innerHTML = ('Proyecciones prox. 24hrs (' + childSnapshot.val().fav_cripto+')');
+                document.getElementById("msj2").innerHTML = ('Crecimiento de Criptomoneda ' + childSnapshot.val().fav_cripto);
+                document.getElementById("msj3").innerHTML = ('Conversion de su saldo en ' + childSnapshot.val().fav_cripto);
                 
                 
     var actualsG = [];
     var NextDay=0;
     var hours = [];
-    var ref3 = firebase.database().ref(childSnapshot.val().crypto);
-    utc = new Date('2022-01-17');
+    var ref3 = firebase.database().ref(childSnapshot.val().fav_cripto);
+    let date = new Date();
+    let day = date.getDate() -1;
+    let month = date.getMonth() + 1;
+    let year = date.getFullYear();
+    let utc;
+
+    if(month < 10){
+        utc = `${year}-0${month}-${day}`
+    }else{
+        utc = `${year}-${month}-${day}`
+    }
     ref3.on("value", function(snapshot) {
     snapshot.forEach(function(childSnapshot) {
         childData = {...childSnapshot.val()} 
-        if (childSnapshot.val().fecha !== utc){
+        if (childSnapshot.val().fecha === utc){
             hours = childSnapshot.val().rama24;
             actualsG= childSnapshot.val().precios_reales;
             NextDay = childSnapshot.val().predicion;
-            
+            console.log('hours: ' + hours, "\n actualsG: " + actualsG,"\n NextDay: " + NextDay);
             var Incremento = ( actualsG[actualsG.length-1] - actualsG[actualsG.length-2])/actualsG[actualsG.length-2] *100
             
             document.getElementById("Predc").innerHTML = ('$ ' + NextDay.toFixed(2));

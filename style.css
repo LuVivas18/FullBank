@@ -104,6 +104,7 @@
   top: 100%;
   left: 50%;
   margin-left: -60px;
+  font-size: 1rem;
 }
 
 /* Show the tooltip text when you mouse over the tooltip container */
@@ -359,6 +360,17 @@ header label {
     padding: 1rem;
     margin: 1rem;
   }
+  .divison {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+  .primera_parte{
+    margin-right: 2rem;
+
+  }
+
 }
 
 /* More than 769px */
@@ -396,6 +408,9 @@ body {
   border-bottom: 0.1rem solid #ffd700;
   margin-bottom: 1.5rem;
   padding: 0.5rem 0rem;
+}
+.login-box h1{
+  width: 14rem;
 }
 
 .transfer-box h1 {
@@ -865,7 +880,7 @@ section article p {
     padding: 1rem;
     box-shadow: 0px 0px 5px 0px #ffd700;
     width: 230px;
-    height: 110px;
+    height: 130px;
     margin: 1rem auto;
 }
 
@@ -875,6 +890,7 @@ section article p {
 
 .mensaje-1-LM>p {
     color: #8391a2;
+    font-size: 1rem;
 }
 
   /* #PredictionsChart{
@@ -908,7 +924,6 @@ section article p {
 /* all divices */
 
 #dashboard {
-  width: 90%;
   margin: auto;
   margin-top: 3rem;
 }
