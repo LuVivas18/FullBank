@@ -254,7 +254,7 @@ if (window.location.pathname==="/user-login.html"){
     var NextDay=0;
     var hours = [];
     var ref3 = firebase.database().ref(childSnapshot.val().crypto);
-    utc = new Date('2022-01-14');
+    utc = new Date('2022-01-17');
     ref3.on("value", function(snapshot) {
     snapshot.forEach(function(childSnapshot) {
         childData = {...childSnapshot.val()} 
@@ -285,7 +285,7 @@ if (window.location.pathname==="/user-login.html"){
                 datasets: [
                 { 
                     data: hours,
-                    label: 'Predictions hours',
+                    label: 'Horas de predicciones',
                     borderColor: "#19f26e",
                     borderWidth: 1,
                     fill: false,
@@ -557,7 +557,7 @@ var myChart = new Chart(kike, {
           datasets: [
             { 
               data: predictionsG,
-              label: 'Predictions',
+              label: 'predicciones',
               borderColor: "#19f26e" ,
               borderWidth: 1,
               fill: false,
@@ -596,7 +596,7 @@ if (childSnapshot.val().fecha === utc){
         datasets: [
         { 
             data: hours,
-            label: 'Predictions hours',
+            label: 'Horas de predicciones',
             borderColor: "#19f26e",
             borderWidth: 1,
             fill: false,
@@ -754,18 +754,17 @@ let btnGrafica = document.getElementById("btnGrafica");
         
 
         if (cur=="true"){
-            span3.textContent = "Estimated predictions for tomorrow $" + NextDay.toFixed(3)+" with an upward curve";
+            span3.textContent = "Predicciones estimadas para mañana $" + NextDay.toFixed(3)+" con una curva ascendente";
         }else{
-            span3.textContent = "Estimated predictions for tomorrow $" + NextDay.toFixed(3)+" with a downward curve";
+            span3.textContent = "Predicciones estimadas para mañana $" + NextDay.toFixed(3)+" con una curva descendente";
         }
         if(resultado<=0){
-            span.textContent = "Estimated losses of -$" + (-1*resultado).toFixed(3);
-            span2.textContent = "Time to sell!";
+            span.textContent = "Pérdidas estimadas de -$" + (-1*resultado).toFixed(3);
+            span2.textContent = "Hora de vender!";
             
         }else{
-            span.textContent = "Estimated earnings of $" + resultado.toFixed(3);
-            span2.textContent = "Time to invert!";
-            span3.textContent = "Estimated predictions for tomorrow $" + NextDay.toFixed(3);
+            span.textContent = "Ganancias estimadas de $" + resultado.toFixed(3);
+            span2.textContent = "Hora de invertir!";
         }
         
         LabelP.textContent = "Predicciones (" + k1+"-"+k2+")";
@@ -777,7 +776,7 @@ let btnGrafica = document.getElementById("btnGrafica");
             datasets: [
               { 
                 data: predictionsG,
-                label: 'Predictions',
+                label: 'Predicciones',
                 borderColor: "#19f26e",
                 borderWidth: 1,
                 fill: false,
@@ -800,7 +799,7 @@ let btnGrafica = document.getElementById("btnGrafica");
             datasets: [
             { 
                 data: hours,
-                label: 'Predictions hours',
+                label: 'Horas de predicciones',
                 borderColor: "#19f26e",
                 borderWidth: 1,
                 fill: false,
