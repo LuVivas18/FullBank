@@ -258,7 +258,7 @@ if (window.location.pathname==="/user-login.html"){
     var hours = [];
     var ref3 = firebase.database().ref(childSnapshot.val().fav_cripto);
     let date = new Date();
-    let day = date.getDate() -1;
+    let day = date.getDate() -2;
     let month = date.getMonth() + 1;
     let year = date.getFullYear();
     let utc;
