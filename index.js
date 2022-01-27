@@ -214,14 +214,6 @@ if (window.location.pathname==="/user-login.html"){
     ref.on("value", function(snapshot) {
     snapshot.forEach(function(childSnapshot) {
         lastloginSesion = childSnapshot.val().last_login 
-        // if (childSnapshot.val().full_name === ""){
-        //     prof_name.value = childSnapshot.val().full_name;
-        //     prof_birthday.value = childSnapshot.val().birthday;
-        //     prof_email.value = childSnapshot.val().email;
-        //     prof_phone.value = childSnapshot.val().phone;
-        //     prof_phone2.value = "None";
-        //     prof_address.value = childSnapshot.val().address;
-        // }
     });
 
     });
@@ -336,7 +328,6 @@ if (window.location.pathname==="/user-perfil.html"){
             prof_birthday.value = childSnapshot.val().birthday;
             prof_email.value = childSnapshot.val().email;
             prof_phone.value = childSnapshot.val().phone;
-            prof_phone2.value = "None";
             prof_address.value = childSnapshot.val().address;
             });
         
@@ -358,6 +349,46 @@ if (window.location.pathname==="/user-perfil.html"){
     });
 };   
 
+let btnActInfo = document.getElementById("Actualizar_Info");
+if (btnActInfo){
+    btnActInfo.addEventListener('click', function(){
+
+        const prof_name = document.getElementById("prof_name").value;
+        const prof_birthday = document.getElementById("prof_birthday").value;
+        const prof_email = document.getElementById("prof_email").value;
+        const prof_phone = document.getElementById("prof_phone").value;
+        const prof_address = document.getElementById("prof_address").value;
+
+        var user_data = {
+            email: prof_email,
+            full_name: prof_name,
+            birthday: prof_birthday,
+            phone: prof_phone,
+            address: prof_address
+        }
+
+        
+        const auth = firebase.auth();
+        const database = firebase.database();
+        var database_ref = database.ref();
+        var ref = firebase.database().ref("sesion");
+        var childData;
+
+        database_ref.child('sesion/ultimo_usuario').update(user_data);
+
+        // ref.on("value", function(snapshot) {
+        // snapshot.forEach(function(childSnapshot) {
+        //     childData = {...childSnapshot.val()}   
+        //     prof_name.value = childSnapshot.val().full_name;
+        //     prof_birthday.value = childSnapshot.val().birthday;
+        //     prof_email.value = childSnapshot.val().email;
+        //     prof_phone.value = childSnapshot.val().phone;
+        //     prof_address.value = childSnapshot.val().address;
+        //     });
+
+        // });
+    });
+}
 
 let btnLogin = document.getElementById("btnLogin");
 if (btnLogin){
