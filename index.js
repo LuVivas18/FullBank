@@ -504,7 +504,7 @@ if (window.location.pathname==="/user-login-transfer.html"){
  /* Notificaciones */ 
  function dates() {
     var fechaInicio = new Date('2022-01-10');
-    var fechaFin    = new Date('2022-01-14');
+    var fechaFin    = new Date('2022-01-30');
     var lista = []
     while(fechaFin.getTime() >= fechaInicio.getTime()){
         fechaInicio.setDate(fechaInicio.getDate() + 1);
@@ -537,19 +537,17 @@ if (window.location.pathname==="/user-login-transfer.html"){
                 ref.on("value", function(snapshot) {
                 snapshot.forEach(function(childSnapshot) {
                 childData = {...childSnapshot.val()} 
-                console.log(childSnapshot.val().labels)
                 if ((childSnapshot.val().labels ===cryp[j]) && (childSnapshot.val().fecha === days[i])){
                     tm = childSnapshot.val().msj;
                     tm2 = childSnapshot.val().msj2;
                     td = childSnapshot.val().fecha;
                     tc = childSnapshot.val().labels;
-                    console.log(tm)
                     msj.push(tm);
                     msj2.push(tm2); 
                     crt.push(tc);
                     dats.push(td);
                                 }else{
-                                    console.log('no')
+                                    
                                 }      
                                     });
                                     });
@@ -568,10 +566,28 @@ if (window.location.pathname==="/user-login-transfer.html"){
         
         
     }
+    ref = firebase.database().ref("sesion");
+    ref.on("value", function(snapshot) {
+        snapshot.forEach(function(childSnapshot) {
+        childData = {...childSnapshot.val()} 
+        if (childSnapshot.val().full_name === "luvivas2022"){
+            const div = document.createElement('div');
+            div.innerHTML = '<h3>Message<i class="fas fa-bell"></i></h3><h2>Transacción Realizada a kcorteser existosa!</h2><p><span class="percentage-green">Fecha: 2022-01-28 </span></p><p><span class="percentage-red">Descuento: 1250$ </span></p>';
+            prueba.appendChild(div);
+            
+        }else{
+            const div = document.createElement('div');
+            div.innerHTML = '<h3>Message<i class="fas fa-bell"></i></h3><h2>Transacción Recibida de luvivas2022 existosa! </h2><p><span class="percentage-green">Fecha: 2022-01-28 </span></p><p><span class="percentage-green">Abono: 1250$ </span></p>';
+            prueba.appendChild(div);
+            
 
+    
+        }
+        
+    })})
 
-
-        })}
+})}
+       
 
 
  
